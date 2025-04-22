@@ -1,6 +1,8 @@
 <div align="center">
   <picture>
-    <img width="100" height="100" src="https://cdn.jsdelivr.net/gh/ltdorgtest/static/mark/mdbook.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/ltdorgtest/static/mark/mdbook-white.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://cdn.jsdelivr.net/gh/ltdorgtest/static/mark/mdbook-black.svg">
+    <img width="100" height="100" src="https://cdn.jsdelivr.net/gh/ltdorgtest/static/mark/mdbook-black.svg">
   </picture>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://cdn.jsdelivr.net/gh/ltdorgtest/static/mark/crowdin-white.svg">
