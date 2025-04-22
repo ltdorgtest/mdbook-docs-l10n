@@ -53,7 +53,7 @@ set(GETTEXT_WRAP_WIDTH 79
 set(GETTEXT_MDBOOK_DEPTH 5
     CACHE STRING "The Gettext mdBook depth, passed to xgettext.depth")
 
-set(REMOTE_URL_OF_L10N "https://github.com/hwhsu1231/mdbook-guide-l10n.git"
+set(REMOTE_URL_OF_L10N "https://github.com/ltdorgtest/mdbook-guide-l10n.git"
     CACHE STRING "Remote URL of the l10n Git repository.")
 
 set(REMOTE_URL_OF_DOCS "https://github.com/rust-lang/mdBook.git"
