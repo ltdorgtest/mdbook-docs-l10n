@@ -9,16 +9,16 @@ project(mdbook-guide-l10n NONE)
 #]============================================================]
 
 set(LANGUAGE "all"
-    CACHE STRING "Language Code for the Sphinx documentation system.")
+    CACHE STRING "The language code of the documentation.")
     # Possible values are "all" and languages listed in languages.json.
-    # See https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-language for details.
 
 set(LANGUAGE_SOURCE "en_US"
     CACHE STRING "The source language code of the documentation")
+    # Possible values are "en_US".
 
 set(VERSION "latest"
-    CACHE STRING "Current version for the mdBook documentation.")
-    # Possible values are "latest", "stable", and "0.4".
+    CACHE STRING "The current version of the documentation.")
+    # Possible values are versions listed in versions.json.
 
 set(VERSION_COMPENDIUM "latest"
     CACHE STRING "Version of compendium that the current version merges translations from.")
@@ -47,11 +47,11 @@ set(MODE_OF_INSTALL "COMPARE"
 set(MDBOOK_RENDERER "html"
     CACHE STRING "The renderer for the mdBook documentation system.")
 
+set(MDBOOK_XGETTEXT_DEPTH 5
+    CACHE STRING "The Gettext mdBook depth, passed to xgettext.depth")
+
 set(GETTEXT_WRAP_WIDTH 79
     CACHE STRING "The Gettext wrap width for .pot/.po files.")
-
-set(GETTEXT_MDBOOK_DEPTH 5
-    CACHE STRING "The Gettext mdBook depth, passed to xgettext.depth")
 
 set(REMOTE_URL_OF_L10N "https://github.com/ltdorgtest/mdbook-guide-l10n.git"
     CACHE STRING "Remote URL of the l10n Git repository.")
@@ -178,22 +178,31 @@ if (NOT LANGUAGE_IS_VALID)
 endif()
 
 #[============================================================[
-# Validate the MODE_OF_UPDATE cache variable.
+# Validate the MODE_OF_UPDATE         cache variable.
+# Validate the MODE_OF_INSTALL        cache variable.
+# Validate the MDBOOK_RENDERER        cache variable.
+# Validate the MDBOOK_XGETTEXT_DEPTH  cache variable.
+# Validate the GETTEXT_WRAP_WIDTH     cache variable.
 #]============================================================]
 
-if (NOT MODE_OF_UPDATE STREQUAL "COMPARE" AND
-    NOT MODE_OF_UPDATE STREQUAL "ALWAYS" AND
-    NOT MODE_OF_UPDATE STREQUAL "NEVER")
+if (NOT MODE_OF_UPDATE MATCHES "^(COMPARE|ALWAYS|NEVER)$")
     message(FATAL_ERROR "Invalid MODE_OF_UPDATE value. (${MODE_OF_UPDATE})")
 endif()
 
-#[============================================================[
-# Validate the MODE_OF_INSTALL cache variable.
-#]============================================================]
-
-if (NOT MODE_OF_INSTALL STREQUAL "COMPARE" AND
-    NOT MODE_OF_INSTALL STREQUAL "ALWAYS")
+if (NOT MODE_OF_INSTALL MATCHES "^(COMPARE|ALWAYS)$")
     message(FATAL_ERROR "Invalid MODE_OF_INSTALL value. (${MODE_OF_INSTALL})")
+endif()
+
+if (NOT MDBOOK_RENDERER MATCHES "^(html)$")
+    message(FATAL_ERROR "Invalid MDBOOK_RENDERER value. (${MDBOOK_RENDERER})")
+endif()
+
+if (NOT MDBOOK_XGETTEXT_DEPTH MATCHES "^(0|[1-9][0-9]*)$")
+    message(FATAL_ERROR "Invalid MDBOOK_XGETTEXT_DEPTH value. (${MDBOOK_XGETTEXT_DEPTH})")
+endif()
+
+if (NOT GETTEXT_WRAP_WIDTH MATCHES "^[1-9][0-9]*$")
+    message(FATAL_ERROR "Invalid GETTEXT_WRAP_WIDTH value. (${GETTEXT_WRAP_WIDTH})")
 endif()
 
 #[============================================================[
@@ -283,8 +292,8 @@ message(STATUS "REMOVE_REDUNDANT                = ${REMOVE_REDUNDANT}")
 message(STATUS "MODE_OF_UPDATE                  = ${MODE_OF_UPDATE}")
 message(STATUS "MODE_OF_INSTALL                 = ${MODE_OF_INSTALL}")
 message(STATUS "MDBOOK_RENDERER                 = ${MDBOOK_RENDERER}")
+message(STATUS "MDBOOK_XGETTEXT_DEPTH           = ${MDBOOK_XGETTEXT_DEPTH}")
 message(STATUS "GETTEXT_WRAP_WIDTH              = ${GETTEXT_WRAP_WIDTH}")
-message(STATUS "GETTEXT_MDBOOK_DEPTH            = ${GETTEXT_MDBOOK_DEPTH}")
 message(STATUS "REMOTE_URL_OF_L10N              = ${REMOTE_URL_OF_L10N}")
 message(STATUS "REMOTE_URL_OF_DOCS              = ${REMOTE_URL_OF_DOCS}")
 message(STATUS "BASEURL_HREF                    = ${BASEURL_HREF}")
@@ -354,7 +363,8 @@ string(REPLACE ";" "\\\\;" LANGUAGE_LIST "${LANGUAGE_LIST}")
 #]============================================================]
 
 set(SCRIPT_MODE_ENV
-    PYTHONNOUSERSITE=1)
+    LANG=en_US.UTF-8
+    LANGUAGE=en_US)
 
 #[============================================================[
 # Cache variables passed to script mode.
@@ -374,8 +384,8 @@ set(SCRIPT_MODE_CACHE
     -D REMOTE_URL_OF_DOCS=${REMOTE_URL_OF_DOCS}
     -D BASEURL_HREF=${BASEURL_HREF}
     -D MDBOOK_RENDERER=${MDBOOK_RENDERER}
+    -D MDBOOK_XGETTEXT_DEPTH=${MDBOOK_XGETTEXT_DEPTH}
     -D GETTEXT_WRAP_WIDTH=${GETTEXT_WRAP_WIDTH}
-    -D GETTEXT_MDBOOK_DEPTH=${GETTEXT_MDBOOK_DEPTH}
     -D VERSION_OF_RUST=${VERSION_OF_RUST}
     -D VERSION_OF_DASEL=${VERSION_OF_DASEL}
     -D VERSION_OF_MDBOOK=${VERSION_OF_MDBOOK}
