@@ -21,7 +21,8 @@ set(VERSION "latest"
     # Possible values are versions listed in versions.json.
 
 set(VERSION_COMPENDIUM "latest"
-    CACHE STRING "Version of compendium that the current version merges translations from.")
+    CACHE STRING "The version of compendium from which the current version will merge translations.")
+    # Possible values are NULL and versions listed in versions.json.
 
 set(AUTO_DEPEND ON
     CACHE BOOL "Enable automatic dependency management for specific build targets.")
