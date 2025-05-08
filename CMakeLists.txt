@@ -108,7 +108,7 @@ set(LANGUAGES_JSON_PATH             "${PROJ_SOURCE_DIR}/languages.json")
 set(PREV_PACKAGES_TXT_PATH          "${PROJ_CONDA_DIR}/prev/packages.txt")
 set(PREV_REFERENCE_TXT_PATH         "${PROJ_CONDA_DIR}/prev/reference.txt")
 set(REFERENCES_JSON_PATH            "${PROJ_L10N_VERSION_DIR}/references.json")
-set(STATISTICS_TXT_PATH             "${PROJ_L10N_VERSION_DIR}/statistic.txt")
+set(STATISTICS_TXT_PATH             "${PROJ_L10N_VERSION_DIR}/statistics.txt")
 set(CROWDIN_YML_PATH                "${PROJ_L10N_VERSION_DIR}/crowdin.yml")
 
 #[============================================================[
