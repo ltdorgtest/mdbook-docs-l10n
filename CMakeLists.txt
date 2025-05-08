@@ -452,16 +452,16 @@ add_custom_target(mdbook_build_docs ALL
 # Optional Targets.
 #]============================================================]
 
-add_custom_target(gettext_statistic_po
+add_custom_target(gettext_statistics
     COMMAND ${CMAKE_COMMAND} -E env ${SCRIPT_MODE_ENV}
             ${CMAKE_COMMAND} ${SCRIPT_MODE_CACHE}
-            -P ${PROJ_CMAKE_TARGETS_DIR}/gettext_statistic_po.cmake
+            -P ${PROJ_CMAKE_TARGETS_DIR}/gettext_statistics.cmake
     VERBATIM)
 
-add_custom_target(gettext_compend_po
+add_custom_target(gettext_compendium
     COMMAND ${CMAKE_COMMAND} -E env ${SCRIPT_MODE_ENV}
             ${CMAKE_COMMAND} ${SCRIPT_MODE_CACHE}
-            -P ${PROJ_CMAKE_TARGETS_DIR}/gettext_compend_po.cmake
+            -P ${PROJ_CMAKE_TARGETS_DIR}/gettext_compendium.cmake
     VERBATIM)
 
 add_custom_target(crowdin_upload_pot
