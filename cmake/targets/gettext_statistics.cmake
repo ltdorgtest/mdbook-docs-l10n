@@ -15,7 +15,7 @@ include(JsonUtils)
 include(GettextUtils)
 
 
-set(STATISTIC_TXT_CNT "")
+set(STATISTICS_TXT_CNT "")
 foreach(_LANGUAGE ${LANGUAGE_LIST})
     if (_LANGUAGE STREQUAL LANGUAGE_SOURCE)
         continue()
@@ -51,9 +51,9 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     message("${LOG_MESSAGES}")
     message("")
     restore_cmake_message_indent()
-    set(STATISTIC_TXT_CNT "${STATISTIC_TXT_CNT}${LOG_MESSAGES}\n")
+    set(STATISTICS_TXT_CNT "${STATISTICS_TXT_CNT}${LOG_MESSAGES}\n")
 endforeach()
 unset(_LANGUAGE)
 
 
-file(WRITE "${STATISTIC_TXT_PATH}" "${STATISTIC_TXT_CNT}")
+file(WRITE "${STATISTICS_TXT_PATH}" "${STATISTICS_TXT_CNT}")
