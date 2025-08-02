@@ -171,9 +171,14 @@ message("")
 restore_cmake_message_indent()
 
 
-set(Cargo_ROOT_DIR      "${PROJ_CONDA_DIR}"
-                        "${PROJ_CONDA_DIR}/Library")
-find_package(Cargo      MODULE REQUIRED)
+if (CMAKE_HOST_LINUX)
+    set(Cargo_ROOT_DIR  "${PROJ_CONDA_DIR}")
+elseif (CMAKE_HOST_WIN32)
+    set(Cargo_ROOT_DIR  "${PROJ_CONDA_DIR}/Library")
+else()
+    message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
+endif()
+find_package(Cargo  MODULE REQUIRED)
 
 
 message(STATUS "Running 'cargo install' command to the 'mdbook' package...")
@@ -202,12 +207,14 @@ else()
 endif()
 remove_cmake_message_indent()
 message("")
+message("CARGO_INSTALL_DIR  = ${CARGO_INSTALL_DIR}")
+message("")
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E env
             ${ENV_VARS_OF_SYSTEM}
             ${Cargo_EXECUTABLE} install
             --path ${PROJ_OUT_REPO_DIR}
-            --root ${PROJ_CONDA_DIR}
+            --root ${CARGO_INSTALL_DIR}
             --locked
     ECHO_OUTPUT_VARIABLE
     ECHO_ERROR_VARIABLE
@@ -309,15 +316,21 @@ find_package(mdBook    MODULE REQUIRED)
 
 
 message(STATUS "Running 'cargo install' command to the specified packages...")
-if (CMAKE_HOST_WIN32)
-    set(ENV_PATH                "${PROJ_CONDA_DIR}/bin;$ENV{PATH}")
-    string(REPLACE ";" "\\\\;"  ENV_PATH "${ENV_PATH}")
-    set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH})
-else()
+if (CMAKE_HOST_LINUX)
     set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
     set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{ENV_LD_LIBRARY_PATH}")
     set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
                                 LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH})
+elseif (CMAKE_HOST_WIN32)
+    set(ENV_PATH                "${PROJ_CONDA_DIR}/bin"
+                                "${PROJ_CONDA_DIR}/Scripts"
+                                "${PROJ_CONDA_DIR}/Library/bin"
+                                "${PROJ_CONDA_DIR}"
+                                "$ENV{PATH}")
+    string(REPLACE ";" "\\\\;" ENV_PATH "${ENV_PATH}")
+    set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH})
+else()
+    message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
 endif()
 if (CMAKE_HOST_LINUX)
     set(CARGO_INSTALL_DIR       "${PROJ_CONDA_DIR}")
