@@ -1,5 +1,5 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See accompanying file LICENSE.txt for details.
+# See accompanying file LICENSE-BSD for details.
 
 cmake_minimum_required(VERSION 3.25)
 get_filename_component(SCRIPT_NAME "${CMAKE_CURRENT_LIST_FILE}" NAME_WE)
@@ -17,10 +17,10 @@ include(JsonUtils)
 
 #[============================================================[
 # Prepare and synchronize the repository:
-# (1) Clone from remote if not present.
-# (2) Switch to 'current' branch.
-# (3) Clean untracked files and submodules.
-# (4) Fetch the latest commit or tag based on VERSION_TYPE.
+# - Clone from remote if not present.
+# - Switch to 'current' branch.
+# - Clean untracked files and submodules.
+# - Fetch the latest commit or tag based on VERSION_TYPE.
 #]============================================================]
 
 

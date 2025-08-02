@@ -1,5 +1,5 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See accompanying file LICENSE.txt for details.
+# See accompanying file LICENSE-BSD for details.
 
 cmake_minimum_required(VERSION 3.25)
 get_filename_component(SCRIPT_NAME "${CMAKE_CURRENT_LIST_FILE}" NAME_WE)
@@ -21,6 +21,15 @@ message("ENV{CROWDIN_PERSONAL_TOKEN}  = $ENV{CROWDIN_PERSONAL_TOKEN}")
 message("ENV{CROWDIN_BASE_URL}        = $ENV{CROWDIN_BASE_URL}")
 message("")
 restore_cmake_message_indent()
+if ("$ENV{CROWDIN_PROJECT_ID}" STREQUAL "")
+    message(FATAL_ERROR "Missing ENV{CROWDIN_PROJECT_ID}.")
+endif()
+if ("$ENV{CROWDIN_PERSONAL_TOKEN}" STREQUAL "")
+    message(FATAL_ERROR "Missing ENV{CROWDIN_PERSONAL_TOKEN}.")
+endif()
+if ("$ENV{CROWDIN_BASE_URL}" STREQUAL "")
+    message(FATAL_ERROR "Missing ENV{CROWDIN_BASE_URL}.")
+endif()
 
 
 message(STATUS "Uploding sources for '${VERSION}' version to Crowdin...")

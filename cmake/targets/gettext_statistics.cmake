@@ -1,5 +1,5 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See accompanying file LICENSE.txt for details.
+# See accompanying file LICENSE-BSD for details.
 
 cmake_minimum_required(VERSION 3.25)
 get_filename_component(SCRIPT_NAME "${CMAKE_CURRENT_LIST_FILE}" NAME_WE)
@@ -22,10 +22,10 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     endif()
 
 
-    message(STATUS "Counting the percentage for '${_LANGUAGE}' language...")
+    message(STATUS "Calculating the statistics for '${_LANGUAGE}' language...")
     remove_cmake_message_indent()
     message("")
-    caculate_statistic_info_of_gettext(
+    caculate_statistics_of_gettext(
         IN_LOCALE_PO_DIR              "${PROJ_L10N_VERSION_LOCALE_DIR}/${_LANGUAGE}"
         IN_PADDING_LENGTH             "3"
         OUT_NUM_OF_PO_COMPLETED       NUM_OF_PO_COMPLETED
