@@ -10,7 +10,6 @@ project(mdbook-guide-l10n NONE)
 
 set(ENV_LANG              "en_US.UTF-8")
 set(ENV_LANGUAGE          "en_US")
-set(ENV_PYTHONNOUSERSITE  "1")
 
 #[============================================================[
 # CMP<NNNN> Defaults.
@@ -312,7 +311,6 @@ file(COPY_FILE
 message(STATUS "---------- Environment Variables ----------")
 message(STATUS "ENV_LANG                        = ${ENV_LANG}")
 message(STATUS "ENV_LANGUAGE                    = ${ENV_LANGUAGE}")
-message(STATUS "ENV_PYTHONNOUSERSITE            = ${ENV_PYTHONNOUSERSITE}")
 message(STATUS "---------- CMP<NNNN> Defaults ----------")
 message(STATUS "CMAKE_POLICY_DEFAULT_CMP0144    = ${CMAKE_POLICY_DEFAULT_CMP0144}")
 message(STATUS "---------- Cache Variables ----------")
