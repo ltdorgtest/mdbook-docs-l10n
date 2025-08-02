@@ -5,6 +5,23 @@ cmake_minimum_required(VERSION 3.25)
 project(mdbook-guide-l10n NONE)
 
 #[============================================================[
+# Environment Variables.
+#]============================================================]
+
+set(ENV_LANG              "en_US.UTF-8")
+set(ENV_LANGUAGE          "en_US")
+set(ENV_PYTHONNOUSERSITE  "1")
+
+#[============================================================[
+# CMP<NNNN> Defaults.
+#]============================================================]
+
+if (POLICY CMP0144)
+    cmake_policy(SET CMP0144 NEW)
+    cmake_policy(GET CMP0144 CMAKE_POLICY_DEFAULT_CMP0144)
+endif()
+
+#[============================================================[
 # Cache Variables.
 #]============================================================]
 
@@ -244,6 +261,14 @@ if (NOT "$CACHE{VERSION_OF_MDBOOK_I18N_HELPER}" STREQUAL "[default]")
 endif()
 
 #[============================================================[
+# Prepare LOCALE_TO_BOOK_DIR for 'mdbook_build_docs' taget.
+#]============================================================]
+
+file(RELATIVE_PATH LOCALE_TO_BOOK_DIR
+    "${PROJ_OUT_REPO_BOOK_DIR}"
+    "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}")
+
+#[============================================================[
 # Check prerequisites.
 #]============================================================]
 
@@ -284,6 +309,12 @@ file(COPY_FILE
 # Print Information.
 #]============================================================]
 
+message(STATUS "---------- Environment Variables ----------")
+message(STATUS "ENV_LANG                        = ${ENV_LANG}")
+message(STATUS "ENV_LANGUAGE                    = ${ENV_LANGUAGE}")
+message(STATUS "ENV_PYTHONNOUSERSITE            = ${ENV_PYTHONNOUSERSITE}")
+message(STATUS "---------- CMP<NNNN> Defaults ----------")
+message(STATUS "CMAKE_POLICY_DEFAULT_CMP0144    = ${CMAKE_POLICY_DEFAULT_CMP0144}")
 message(STATUS "---------- Cache Variables ----------")
 message(STATUS "LANGUAGE                        = ${LANGUAGE}")
 message(STATUS "LANGUAGE_SOURCE                 = ${LANGUAGE_SOURCE}")
@@ -331,6 +362,7 @@ message(STATUS "REFERENCES_JSON_PATH            = ${REFERENCES_JSON_PATH}")
 message(STATUS "STATISTICS_TXT_PATH             = ${STATISTICS_TXT_PATH}")
 message(STATUS "CROWDIN_YML_PATH                = ${CROWDIN_YML_PATH}")
 message(STATUS "---------- Other Variables ----------")
+message(STATUS "LOCALE_TO_BOOK_DIR              = ${LOCALE_TO_BOOK_DIR}")
 message(STATUS "LANGUAGE_LIST                   = ${LANGUAGE_LIST}")
 message(STATUS "VERSION_TYPE                    = ${VERSION_TYPE}")
 message(STATUS "BRANCH_NAME                     = ${BRANCH_NAME}")
@@ -365,14 +397,16 @@ string(REPLACE ";" "\\\\;" LANGUAGE_LIST "${LANGUAGE_LIST}")
 #]============================================================]
 
 set(SCRIPT_MODE_ENV
-    LANG=en_US.UTF-8
-    LANGUAGE=en_US)
+    LANG=${ENV_LANG}
+    LANGUAGE=${ENV_LANGUAGE})
 
 #[============================================================[
 # Cache variables passed to script mode.
 #]============================================================]
 
 set(SCRIPT_MODE_CACHE
+    # [CMP<NNNN> Defaults]
+    -D CMAKE_POLICY_DEFAULT_CMP0144=${CMAKE_POLICY_DEFAULT_CMP0144}
     # [Cache Variables]
     -D LANGUAGE=${LANGUAGE}
     -D LANGUAGE_SOURCE=${LANGUAGE_SOURCE}
@@ -420,6 +454,7 @@ set(SCRIPT_MODE_CACHE
     -D STATISTICS_TXT_PATH=${STATISTICS_TXT_PATH}
     -D CROWDIN_YML_PATH=${CROWDIN_YML_PATH}
     # [Other Variables]
+    -D LOCALE_TO_BOOK_DIR=${LOCALE_TO_BOOK_DIR}
     -D LANGUAGE_LIST=${LANGUAGE_LIST}
     -D VERSION_TYPE=${VERSION_TYPE}
     -D BRANCH_NAME=${BRANCH_NAME}
