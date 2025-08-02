@@ -4,16 +4,6 @@
     "crowdin" : "en",
     "readthedocs" : "en"
   },
-  "ja_JP" : {
-    "langtag" : "ja-jp",
-    "crowdin" : "ja",
-    "readthedocs" : "ja"
-  },
-  "ru_RU" : {
-    "langtag" : "ru-ru",
-    "crowdin" : "ru",
-    "readthedocs" : "ru"
-  },
   "zh_CN" : {
     "langtag" : "zh-cn",
     "crowdin" : "zh-CN",

@@ -30,33 +30,6 @@
       }
     },
     {
-      "name" : "ja_JP",
-      "displayName" : "Japanese",
-      "description" : "日本語",
-      "inherits" : "default",
-      "cacheVariables" : {
-        "LANGUAGE" : "ja_JP"
-      }
-    },
-    {
-      "name" : "ko_KR",
-      "displayName" : "Korean",
-      "description" : "한국인",
-      "inherits" : "default",
-      "cacheVariables" : {
-        "LANGUAGE" : "ko_KR"
-      }
-    },
-    {
-      "name" : "ru_RU",
-      "displayName" : "Russian",
-      "description" : "Русский",
-      "inherits" : "default",
-      "cacheVariables" : {
-        "LANGUAGE" : "ru_RU"
-      }
-    },
-    {
       "name" : "zh_CN",
       "displayName" : "Simplified Chinese",
       "description" : "简体中文",
