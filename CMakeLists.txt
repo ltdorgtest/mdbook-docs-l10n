@@ -150,7 +150,7 @@ get_members_of_json_object(
 # - For "master":
 #   - Set VERSION_TYPE    to "branch"
 #   - Set BRANCH_NAME     to "master"
-# - For "stable":
+# - For "latest":
 #   - Set VERSION_TYPE    to "tag"
 #   - Set TAG_PATTERN     to "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$"
 #   - Set TAG_SUFFIX      to "-rc"
@@ -163,7 +163,7 @@ get_members_of_json_object(
 if     (VERSION MATCHES "^master$")
     set(VERSION_TYPE    "branch")
     set(BRANCH_NAME     "master")
-elseif (VERSION MATCHES "^stable$")
+elseif (VERSION MATCHES "^latest$")
     set(VERSION_TYPE    "tag")
     set(TAG_PATTERN     "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$")
     set(TAG_SUFFIX      "-rc")
@@ -234,7 +234,7 @@ if     (VERSION MATCHES "^master$")
     set(VERSION_OF_DASEL              "")
     set(VERSION_OF_MDBOOK             "")
     set(VERSION_OF_MDBOOK_I18N_HELPER "")
-elseif (VERSION MATCHES "^stable$")
+elseif (VERSION MATCHES "^latest$")
     set(VERSION_OF_RUST               "")
     set(VERSION_OF_DASEL              "")
     set(VERSION_OF_MDBOOK             "")
