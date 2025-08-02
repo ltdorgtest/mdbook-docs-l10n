@@ -106,7 +106,7 @@ else()
 endif()
 
 
-message(STATUS "Running 'conda create' command to (re)create the virtual environemnt...")
+message(STATUS "Running 'conda create' command to (re)create the Conda environemnt...")
 remove_cmake_message_indent()
 message("")
 execute_process(
@@ -137,7 +137,7 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "Running 'conda install' command to install dependencies...")
+message(STATUS "Running 'conda install' command to install requirements...")
 remove_cmake_message_indent()
 message("")
 execute_process(
@@ -244,7 +244,7 @@ endif()
 find_package(mdBook    MODULE REQUIRED)
 
 
-message(STATUS "Running 'cargo install' command to the specified packages...")
+message(STATUS "Running 'cargo install' command to the requirements...")
 if (CMAKE_HOST_LINUX)
     set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
     set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{ENV_LD_LIBRARY_PATH}")
@@ -301,7 +301,7 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "The followings are the installed packages in Conda Environment...")
+message(STATUS "The followings are the installed packages in the Conda Environment...")
 execute_process(
     COMMAND ${Conda_EXECUTABLE} list --export --prefix ${PROJ_CONDA_DIR}
     RESULT_VARIABLE RES_VAR
