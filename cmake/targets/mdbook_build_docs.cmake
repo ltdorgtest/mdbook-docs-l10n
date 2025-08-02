@@ -1,5 +1,5 @@
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See accompanying file LICENSE.txt for details.
+# See accompanying file LICENSE-BSD for details.
 
 cmake_minimum_required(VERSION 3.25)
 get_filename_component(SCRIPT_NAME "${CMAKE_CURRENT_LIST_FILE}" NAME_WE)
@@ -73,15 +73,15 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
 
 
     if (NOT _LANGUAGE STREQUAL LANGUAGE_SOURCE)
-        message(STATUS "Running 'msgcat' command to concatenate translations for '${_LANGUAGE}' language...")
+        message(STATUS "Running 'msgcat' command to concatenate translations of '${VERSION}' version for '${_LANGUAGE}' language...")
         set(PO_LOCALE_DIR   "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}")
         set(PO_SINGLE_FILE  "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}.po")
         remove_cmake_message_indent()
         message("")
-        concat_po_from_locale_to_compendium(
-            IN_LOCALE_PO_DIR          "${PO_LOCALE_DIR}"
-            IN_COMPEND_PO_FILE        "${PO_SINGLE_FILE}"
-            IN_WRAP_WIDTH             "${GETTEXT_WRAP_WIDTH}")
+        concat_po_from_locale_to_single(
+            IN_LOCALE_PO_DIR        "${PO_LOCALE_DIR}"
+            IN_SINGLE_PO_FILE       "${PO_SINGLE_FILE}"
+            IN_WRAP_WIDTH           "${GETTEXT_WRAP_WIDTH}")
         message("")
         restore_cmake_message_indent()
     endif()
@@ -122,10 +122,10 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         endif()
         string(JSON MDBOOK_OUTPUT SET "{}" "${MDBOOK_RENDERER}" "${MDBOOK_OUTPUT_RENDERER}")
     endblock()
-    set(ENV_MDBOOK_OUTPUT                         "${MDBOOK_OUTPUT}") # [output]
-    set(ENV_MDBOOK_BOOK__LANGUAGE                 "${_LANGUAGE}")     # [book.language]
-    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER   "[\"links\"]")      # [preprocessor.gettext.after]
-    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR  "locale")           # [preprocessor.gettext.po-dir]
+    set(ENV_MDBOOK_OUTPUT                         "${MDBOOK_OUTPUT}")       # [output]
+    set(ENV_MDBOOK_BOOK__LANGUAGE                 "${_LANGUAGE}")           # [book.language]
+    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER   "[\"links\"]")            # [preprocessor.gettext.after]
+    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR  "${LOCALE_TO_BOOK_DIR}")  # [preprocessor.gettext.po-dir]
     set(ENV_VARS_OF_COMMON
         MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
         MDBOOK_BOOK__LANGUAGE=${ENV_MDBOOK_BOOK__LANGUAGE}
@@ -149,6 +149,7 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
                 ${mdBook_EXECUTABLE} build
                 ${PROJ_OUT_REPO_BOOK_DIR}
                 --dest-dir ${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}
+        WORKING_DIRECTORY ${PROJ_OUT_REPO_BOOK_DIR}
         ECHO_OUTPUT_VARIABLE
         ECHO_ERROR_VARIABLE
         RESULT_VARIABLE RES_VAR
