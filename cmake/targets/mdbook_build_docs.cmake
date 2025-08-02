@@ -90,11 +90,15 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     message(STATUS "Running 'mdbook build' command to build documentation for '${_LANGUAGE}' language...")
     if (CMAKE_HOST_LINUX)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
-        set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{ENV_LD_LIBRARY_PATH}")
+        set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{LD_LIBRARY_PATH}")
         set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
                                     LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH})
     elseif (CMAKE_HOST_WIN32)
-        set(ENV_PATH                "${PROJ_CONDA_DIR}/bin;$ENV{PATH}")
+        set(ENV_PATH                "${PROJ_CONDA_DIR}/bin"
+                                    "${PROJ_CONDA_DIR}/Scripts"
+                                    "${PROJ_CONDA_DIR}/Library/bin"
+                                    "${PROJ_CONDA_DIR}"
+                                    "$ENV{PATH}")
         string(REPLACE ";" "\\\\;" ENV_PATH "${ENV_PATH}")
         set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH})
     else()
@@ -169,13 +173,13 @@ unset(_LANGUAGE)
 #]============================================================]
 
 
-set(REDIRECT_LANGTAG  "en-us")
-set(REDIRECT_VERSION  "latest")
+set(REDIRECT_LANGTAG    "en-us")
+set(REDIRECT_VERSION    "master")
 
 
 message(STATUS "Configuring 'index.html' file to the root of the renderer directory...")
-set(REDIRECT_URL    "${REDIRECT_LANGTAG}/${REDIRECT_VERSION}/index.html")
-file(MAKE_DIRECTORY "${PROJ_OUT_RENDERER_DIR}")
+set(REDIRECT_URL        "${REDIRECT_LANGTAG}/${REDIRECT_VERSION}/index.html")
+file(MAKE_DIRECTORY     "${PROJ_OUT_RENDERER_DIR}")
 configure_file(
     "${PROJ_CMAKE_CUSTOM_DIR}/index.html.in"
     "${PROJ_OUT_RENDERER_DIR}/index.html"
@@ -211,7 +215,7 @@ restore_cmake_message_indent()
 
 
 #[============================================================[
-# Configure the flyout menu for switching languages and versions.
+# Configure the flyout navigation menu.
 #]============================================================]
 
 

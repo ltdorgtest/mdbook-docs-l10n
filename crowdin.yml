@@ -23,6 +23,6 @@ languages_mapping: &languages_mapping
 # Files configuration.
 #
 files:
-  - source: /locale/pot/**/*.pot
-    translation: /.crowdin/%locale%/**/%file_name%.po
+  - source: /README.md
+    translation: /README.%locale%.md
     languages_mapping: *languages_mapping
