@@ -209,7 +209,6 @@ execute_process(
             ${ENV_VARS_OF_SYSTEM}
             ${Cargo_EXECUTABLE} install
             --path ${PROJ_OUT_REPO_DIR}
-            # --root ${CARGO_INSTALL_ROOT}
             --locked
     ECHO_OUTPUT_VARIABLE
     ECHO_ERROR_VARIABLE
@@ -233,77 +232,6 @@ else()
 endif()
 message("")
 restore_cmake_message_indent()
-
-
-# message(STATUS "Running 'cargo build' command to compile the project...")
-# remove_cmake_message_indent()
-# message("")
-# execute_process(
-#     COMMAND ${Cargo_EXECUTABLE} build
-#             --manifest-path ${PROJ_OUT_REPO_DIR}/Cargo.toml
-#             --target-dir ${PROJ_OUT_REPO_DIR}/target
-#             # --artifact-dir ${PROJ_CONDA_DIR}
-#             # -Z unstable-options
-#             --release
-#     WORKING_DIRECTORY ${PROJ_OUT_REPO_DIR}
-#     ECHO_OUTPUT_VARIABLE
-#     ECHO_ERROR_VARIABLE
-#     RESULT_VARIABLE RES_VAR
-#     OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
-#     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
-# if (RES_VAR EQUAL 0)
-#     if (ERR_VAR)
-#         string(APPEND WARNING_REASON
-#         "The command succeeded with warnings.\n\n"
-#         "    result:\n\n${RES_VAR}\n\n"
-#         "    stderr:\n\n${ERR_VAR}")
-#         message("${WARNING_REASON}")
-#     endif()
-# else()
-#     string(APPEND FAILURE_REASON
-#     "The command failed with fatal errors.\n\n"
-#     "    result:\n\n${RES_VAR}\n\n"
-#     "    stderr:\n\n${ERR_VAR}")
-#     message(FATAL_ERROR "${FAILURE_REASON}")
-# endif()
-# message("")
-# restore_cmake_message_indent()
-
-
-# message(STATUS "Copying 'mdbook' executable to the virtual environment...")
-# if (CMAKE_HOST_WIN32)
-#     set(MDBOOK_EXE  "mdbook.exe")
-# else()
-#     set(MDBOOK_EXE  "mdbook")
-# endif()
-# remove_cmake_message_indent()
-# message("")
-# execute_process(
-#     COMMAND ${CMAKE_COMMAND} -E copy
-#             ${PROJ_OUT_REPO_DIR}/target/release/${MDBOOK_EXE}
-#             ${PROJ_CONDA_DIR}/bin/${MDBOOK_EXE}
-#     ECHO_OUTPUT_VARIABLE
-#     ECHO_ERROR_VARIABLE
-#     RESULT_VARIABLE RES_VAR
-#     OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
-#     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
-# if (RES_VAR EQUAL 0)
-#     if (ERR_VAR)
-#         string(APPEND WARNING_REASON
-#         "The command succeeded with warnings.\n\n"
-#         "    result:\n\n${RES_VAR}\n\n"
-#         "    stderr:\n\n${ERR_VAR}")
-#         message("${WARNING_REASON}")
-#     endif()
-# else()
-#     string(APPEND FAILURE_REASON
-#     "The command failed with fatal errors.\n\n"
-#     "    result:\n\n${RES_VAR}\n\n"
-#     "    stderr:\n\n${ERR_VAR}")
-#     message(FATAL_ERROR "${FAILURE_REASON}")
-# endif()
-# message("")
-# restore_cmake_message_indent()
 
 
 if (CMAKE_HOST_LINUX)
@@ -349,7 +277,6 @@ execute_process(
             ${ENV_VARS_OF_SYSTEM}
             ${Cargo_EXECUTABLE} install
             mdbook-i18n-helpers${VERSION_OF_MDBOOK_I18N_HELPER}
-            # --root ${CARGO_INSTALL_ROOT}
     ECHO_OUTPUT_VARIABLE
     ECHO_ERROR_VARIABLE
     RESULT_VARIABLE RES_VAR
