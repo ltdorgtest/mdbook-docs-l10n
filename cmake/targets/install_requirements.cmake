@@ -9,6 +9,8 @@ message(STATUS "-------------------- ${SCRIPT_NAME} --------------------")
 
 
 set(CMAKE_MODULE_PATH   "${PROJ_CMAKE_MODULES_DIR}")
+set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
+                        "${PROJ_CONDA_DIR}/Library")
 find_package(Git        MODULE REQUIRED)
 find_package(Conda      MODULE REQUIRED)
 include(LogUtils)
@@ -171,13 +173,6 @@ message("")
 restore_cmake_message_indent()
 
 
-if (CMAKE_HOST_LINUX)
-    set(Cargo_ROOT_DIR  "${PROJ_CONDA_DIR}")
-elseif (CMAKE_HOST_WIN32)
-    set(Cargo_ROOT_DIR  "${PROJ_CONDA_DIR}/Library")
-else()
-    message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
-endif()
 find_package(Cargo  MODULE REQUIRED)
 
 
@@ -234,13 +229,6 @@ message("")
 restore_cmake_message_indent()
 
 
-if (CMAKE_HOST_LINUX)
-    set(mdBook_ROOT_DIR     "${PROJ_CONDA_DIR}")
-elseif (CMAKE_HOST_WIN32)
-    set(mdBook_ROOT_DIR     "${PROJ_CONDA_DIR}/Library")
-else()
-    message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
-endif()
 find_package(mdBook    MODULE REQUIRED)
 
 
