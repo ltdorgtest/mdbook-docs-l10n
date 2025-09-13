@@ -216,6 +216,38 @@ restore_cmake_message_indent()
 
 
 #[============================================================[
+# Configure the provenance dropdown.
+#]============================================================]
+
+
+set(UPSTREAM_DOCS   "https://www.sphinx-doc.org")
+set(UPSTREAM_REPO   "https://github.com/sphinx-doc/sphinx")
+set(INSERT_POINT    "div[role=\"main\"]")
+
+
+message(STATUS "Configuring 'ltd-provenance.js' file to the version subdir of the renderer directory...")
+remove_cmake_message_indent()
+message("")
+message("From: ${PROJ_CMAKE_PLUGINS_DIR}/provenance/ltd-sphinx.js.in")
+foreach(_LANGUAGE ${LANGUAGE_LIST})
+    get_json_value_by_dot_notation(
+        IN_JSON_OBJECT      "${LANGUAGES_JSON_CNT}"
+        IN_DOT_NOTATION     ".${_LANGUAGE}.langtag"
+        OUT_JSON_VALUE      _LANGTAG)
+    set(CURRENT_VERSION     "${VERSION}")
+    set(CURRENT_LANGUAGE    "${_LANGTAG}")
+    file(MAKE_DIRECTORY "${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}")
+    configure_file(
+        "${PROJ_CMAKE_PLUGINS_DIR}/provenance/ltd-sphinx.js.in"
+        "${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}/ltd-provenance.js"
+        @ONLY)
+    message("To:   ${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}/ltd-provenance.js")
+endforeach()
+message("")
+restore_cmake_message_indent()
+
+
+#[============================================================[
 # Configure the flyout navigation menu.
 #]============================================================]
 
@@ -237,12 +269,12 @@ restore_cmake_message_indent()
 message(STATUS "Configuring 'ltd-flyout.js' file to the root of the renderer directory...")
 file(MAKE_DIRECTORY "${PROJ_OUT_RENDERER_DIR}")
 configure_file(
-    "${PROJ_CMAKE_FLYOUT_DIR}/ltd-flyout.js"
+    "${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-flyout.js"
     "${PROJ_OUT_RENDERER_DIR}/ltd-flyout.js"
     @ONLY)
 remove_cmake_message_indent()
 message("")
-message("From: ${PROJ_CMAKE_FLYOUT_DIR}/ltd-flyout.js")
+message("From: ${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-flyout.js")
 message("To:   ${PROJ_OUT_RENDERER_DIR}/ltd-flyout.js")
 message("")
 restore_cmake_message_indent()
@@ -251,12 +283,12 @@ restore_cmake_message_indent()
 message(STATUS "Configuring 'ltd-icon.svg' file to the root of the renderer directory...")
 file(MAKE_DIRECTORY "${PROJ_OUT_RENDERER_DIR}")
 configure_file(
-    "${PROJ_CMAKE_FLYOUT_DIR}/ltd-icon.svg"
+    "${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-icon.svg"
     "${PROJ_OUT_RENDERER_DIR}/ltd-icon.svg"
     @ONLY)
 remove_cmake_message_indent()
 message("")
-message("From: ${PROJ_CMAKE_FLYOUT_DIR}/ltd-icon.svg")
+message("From: ${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-icon.svg")
 message("To:   ${PROJ_OUT_RENDERER_DIR}/ltd-icon.svg")
 message("")
 restore_cmake_message_indent()
@@ -265,7 +297,7 @@ restore_cmake_message_indent()
 message(STATUS "Configuring 'ltd-current.js' file to the version subdir of the renderer directory...")
 remove_cmake_message_indent()
 message("")
-message("From: ${PROJ_CMAKE_FLYOUT_DIR}/ltd-current.js.in")
+message("From: ${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-current.js.in")
 foreach(_LANGUAGE ${LANGUAGE_LIST})
     get_json_value_by_dot_notation(
         IN_JSON_OBJECT      "${LANGUAGES_JSON_CNT}"
@@ -275,7 +307,7 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     set(CURRENT_LANGUAGE    "${_LANGTAG}")
     file(MAKE_DIRECTORY "${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}")
     configure_file(
-        "${PROJ_CMAKE_FLYOUT_DIR}/ltd-current.js.in"
+        "${PROJ_CMAKE_PLUGINS_DIR}/flyout/ltd-current.js.in"
         "${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}/ltd-current.js"
         @ONLY)
     message("To:   ${PROJ_OUT_RENDERER_DIR}/${_LANGTAG}/${VERSION}/ltd-current.js")
@@ -290,7 +322,7 @@ restore_cmake_message_indent()
 #]============================================================]
 
 
-message(STATUS "The '${MDBOOK_RENDERER}' documentation is built succesfully!")
+message(STATUS "The '${SPHINX_BUILDER}' documentation is built succesfully!")
 remove_cmake_message_indent()
 message("")
 foreach(_LANGUAGE ${LANGUAGE_LIST})

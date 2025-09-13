@@ -12,8 +12,8 @@
 </div>
 
 <div align="center">
-<h1 id="localization-of-mdbook-guide">
-Localization of mdBook Guide
+<h1 id="localization-of-mdbook-documentation">
+Localization of mdBook Documentation
 </h1>
 </div>
 
@@ -21,9 +21,6 @@ Localization of mdBook Guide
 <p></p>
 <ul>
   <li><a href="./README.md"><code>en_US</code> : English</a></li>
-  <li><a href="./README.ja_JP.md"><code>ja_JP</code> : 日本語</a></li>
-  <li><a href="./README.ko_KR.md"><code>ko_KR</code> : 한국인</a></li>
-  <li><a href="./README.ru_RU.md"><code>ru_RU</code> : Русский</a></li>
   <li><a href="./README.zh_CN.md"><code>zh_CN</code> : 简体中文</a></li>
   <li><a href="./README.zh_TW.md"><code>zh_TW</code> : 繁體中文</a></li>
 </ul>
@@ -37,7 +34,7 @@ Localization of mdBook Guide
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">TMS</th>
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">Crowdin</th>
         <td rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">
-          <a href="https://ltdorgtest.crowdin.com/mdbook-guide-l10n" target="_blank">mdbook-guide-l10n</a>
+          <a href="https://ltdorgtest.crowdin.com/mdbook-docs-l10n" target="_blank">mdbook-docs-l10n</a>
         </td>
       </tr>
       <!-- Main -->
@@ -45,7 +42,7 @@ Localization of mdBook Guide
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">Main</th>
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">GitHub</th>
         <td rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">
-          <a href="https://github.com/ltdorgtest/mdbook-guide-l10n" target="_blank">mdbook-guide-l10n</a>
+          <a href="https://github.com/ltdorgtest/mdbook-docs-l10n" target="_blank">mdbook-docs-l10n</a>
         </td>
       </tr>
       <!-- Mirror -->
@@ -53,13 +50,13 @@ Localization of mdBook Guide
         <th rowspan="2" colspan="1" align="center" style="text-align: center; vertical-align: middle;">Mirror</th>
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">GitCode</th>
         <td rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">
-          <a href="https://gitcode.com/ltdorgtest/mdbook-guide-l10n" target="_blank">mdbook-guide-l10n</a>
+          <a href="https://gitcode.com/ltdorgtest/mdbook-docs-l10n" target="_blank">mdbook-docs-l10n</a>
         </td>
       </tr>
       <tr>
         <th rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">GitFlic</th>
         <td rowspan="1" colspan="1" align="center" style="text-align: center; vertical-align: middle;">
-          <a href="https://gitflic.ru/project/ltdorgtest/mdbook-guide-l10n" target="_blank">mdbook-guide-l10n</a>
+          <a href="https://gitflic.ru/project/ltdorgtest/mdbook-docs-l10n" target="_blank">mdbook-docs-l10n</a>
         </td>
       </tr>
     </tbody>

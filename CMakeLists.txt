@@ -2,7 +2,7 @@
 # See accompanying file LICENSE-BSD for details.
 
 cmake_minimum_required(VERSION 3.25)
-project(mdbook-guide-l10n NONE)
+project(mdbook-docs-l10n NONE)
 
 #[============================================================[
 # Environment Variables.
@@ -71,7 +71,7 @@ set(MDBOOK_XGETTEXT_DEPTH 5
 set(GETTEXT_WRAP_WIDTH 79
     CACHE STRING "The Gettext wrap width for .pot/.po files.")
 
-set(REMOTE_URL_OF_L10N "https://github.com/ltdorgtest/mdbook-guide-l10n.git"
+set(REMOTE_URL_OF_L10N "https://github.com/ltdorgtest/mdbook-docs-l10n.git"
     CACHE STRING "Remote URL of the l10n Git repository.")
 
 set(REMOTE_URL_OF_DOCS "https://github.com/rust-lang/mdBook.git"
