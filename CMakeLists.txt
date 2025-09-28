@@ -99,8 +99,8 @@ set(VERSION_OF_MDBOOK_I18N_HELPER "[default]"
 set(PROJ_SOURCE_DIR                 "${PROJECT_SOURCE_DIR}")
 set(PROJ_BINARY_DIR                 "${PROJECT_BINARY_DIR}")
 set(PROJ_CMAKE_CUSTOM_DIR           "${PROJ_SOURCE_DIR}/cmake/custom")
-set(PROJ_CMAKE_FLYOUT_DIR           "${PROJ_SOURCE_DIR}/cmake/flyout")
 set(PROJ_CMAKE_MODULES_DIR          "${PROJ_SOURCE_DIR}/cmake/modules")
+set(PROJ_CMAKE_PLUGINS_DIR          "${PROJ_SOURCE_DIR}/cmake/plugins")
 set(PROJ_CMAKE_TARGETS_DIR          "${PROJ_SOURCE_DIR}/cmake/targets")
 set(PROJ_CONDA_DIR                  "${PROJ_SOURCE_DIR}/.conda")
 set(PROJ_OUT_DIR                    "${PROJ_SOURCE_DIR}/out")
@@ -228,15 +228,10 @@ endif()
 # Set VERSION_OF_XXX to $CACHE{VERSION_OF_XX} if it's not "[default]".
 #]============================================================]
 
-if     (VERSION MATCHES "^master$")
+if     (VERSION MATCHES "^(master)$")
     set(VERSION_OF_RUST               "")
     set(VERSION_OF_DASEL              "")
-    set(VERSION_OF_MDBOOK             "")
-    set(VERSION_OF_MDBOOK_I18N_HELPER "")
-elseif (VERSION MATCHES "^latest$")
-    set(VERSION_OF_RUST               "")
-    set(VERSION_OF_DASEL              "")
-    set(VERSION_OF_MDBOOK             "")
+    set(VERSION_OF_MDBOOK             "^0.4")
     set(VERSION_OF_MDBOOK_I18N_HELPER "")
 elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
     set(VERSION_OF_RUST               "")
@@ -336,8 +331,8 @@ message(STATUS "---------- Directory-Related Variables ----------")
 message(STATUS "PROJ_SOURCE_DIR                 = ${PROJ_SOURCE_DIR}")
 message(STATUS "PROJ_BINARY_DIR                 = ${PROJ_BINARY_DIR}")
 message(STATUS "PROJ_CMAKE_CUSTOM_DIR           = ${PROJ_CMAKE_CUSTOM_DIR}")
-message(STATUS "PROJ_CMAKE_FLYOUT_DIR           = ${PROJ_CMAKE_FLYOUT_DIR}")
 message(STATUS "PROJ_CMAKE_MODULES_DIR          = ${PROJ_CMAKE_MODULES_DIR}")
+message(STATUS "PROJ_CMAKE_PLUGINS_DIR          = ${PROJ_CMAKE_PLUGINS_DIR}")
 message(STATUS "PROJ_CMAKE_TARGETS_DIR          = ${PROJ_CMAKE_TARGETS_DIR}")
 message(STATUS "PROJ_CONDA_DIR                  = ${PROJ_CONDA_DIR}")
 message(STATUS "PROJ_OUT_DIR                    = ${PROJ_OUT_DIR}")
@@ -428,8 +423,8 @@ set(SCRIPT_MODE_CACHE
     -D PROJ_SOURCE_DIR=${PROJ_SOURCE_DIR}
     -D PROJ_BINARY_DIR=${PROJ_BINARY_DIR}
     -D PROJ_CMAKE_CUSTOM_DIR=${PROJ_CMAKE_CUSTOM_DIR}
-    -D PROJ_CMAKE_FLYOUT_DIR=${PROJ_CMAKE_FLYOUT_DIR}
     -D PROJ_CMAKE_MODULES_DIR=${PROJ_CMAKE_MODULES_DIR}
+    -D PROJ_CMAKE_PLUGINS_DIR=${PROJ_CMAKE_PLUGINS_DIR}
     -D PROJ_CMAKE_TARGETS_DIR=${PROJ_CMAKE_TARGETS_DIR}
     -D PROJ_CONDA_DIR=${PROJ_CONDA_DIR}
     -D PROJ_OUT_DIR=${PROJ_OUT_DIR}
@@ -537,3 +532,39 @@ if (AUTO_DEPEND)
     add_dependencies(gettext_update_po      mdbook_update_pot)
     add_dependencies(mdbook_build_docs      gettext_update_po)
 endif()
+
+
+# set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
+#                         "${PROJ_CONDA_DIR}/Library")
+# find_package(Dasel      MODULE REQUIRED)
+# # block(PROPAGATE MDBOOK_OUTPUT)
+# #     set(MDBOOK_OUTPUT "{}")
+# #     set(MDBOOK_OUTPUT__XGETTEXT "{}")
+# #     string(JSON MDBOOK_OUTPUT__XGETTEXT SET "${MDBOOK_OUTPUT__XGETTEXT}" "depth" "${MDBOOK_XGETTEXT_DEPTH}")
+# #     string(JSON MDBOOK_OUTPUT           SET "${MDBOOK_OUTPUT}" "xgettext" "${MDBOOK_OUTPUT__XGETTEXT}")
+# # endblock()
+# # message(STATUS "MDBOOK_OUTPUT: ${MDBOOK_OUTPUT}")
+# block(PROPAGATE MDBOOK_PREPROCESSOR)
+#     execute_process(
+#         COMMAND ${Dasel_EXECUTABLE}
+#                 --file book.toml
+#                 --read toml
+#                 --write json
+#                 "preprocessor"
+#         WORKING_DIRECTORY ${PROJ_OUT_REPO_BOOK_DIR}
+#         RESULT_VARIABLE RES_VAR
+#         OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+#         ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+#     if (RES_VAR EQUAL 0)
+#         set(MDBOOK_PREPROCESSOR "${OUT_VAR}")
+#     else()
+#         set(MDBOOK_PREPROCESSOR "{}")
+#     endif()
+#     set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
+#     string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
+#     string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
+#     string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
+#     # string(JSON MDBOOK_PREPROCESSOR REMOVE  "${MDBOOK_PREPROCESSOR}" "guide-helper")
+#     message(STATUS "MDBOOK_PREPROCESSOR: ${MDBOOK_PREPROCESSOR}")
+# endblock()
+# message(STATUS "MDBOOK_PREPROCESSOR: ${MDBOOK_PREPROCESSOR}")

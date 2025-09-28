@@ -8,7 +8,6 @@ var CONFIG_OPTIONS = {
   ],
   CONFIG_VERSIONS: [
     ["master",  "Development"],
-    ["latest",  "Latest Release"],
     ["0.4",     "Release 0.4"],
   ],
   CONFIG_PROJECTS: [

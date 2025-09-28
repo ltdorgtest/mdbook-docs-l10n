@@ -91,16 +91,20 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     if (CMAKE_HOST_LINUX)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
         set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{LD_LIBRARY_PATH}")
+        set(ENV_CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}")
         set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
-                                    LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH})
+                                    LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH}
+                                    CARGO_INSTALL_ROOT=${ENV_CARGO_INSTALL_ROOT})
     elseif (CMAKE_HOST_WIN32)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin"
                                     "${PROJ_CONDA_DIR}/Scripts"
                                     "${PROJ_CONDA_DIR}/Library/bin"
                                     "${PROJ_CONDA_DIR}"
                                     "$ENV{PATH}")
+        set(ENV_CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}/Library")
         string(REPLACE ";" "\\\\;" ENV_PATH "${ENV_PATH}")
-        set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH})
+        set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
+                                    CARGO_INSTALL_ROOT=${ENV_CARGO_INSTALL_ROOT})
     else()
         message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
     endif()
@@ -116,27 +120,45 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
             OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
             ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
         if (RES_VAR EQUAL 0)
-            set(MDBOOK_OUTPUT_RENDERER "${OUT_VAR}")
+            set(MDBOOK_OUTPUT__RENDERER "${OUT_VAR}")
         else()
-            set(MDBOOK_OUTPUT_RENDERER "{}")
+            set(MDBOOK_OUTPUT__RENDERER "{}")
         endif()
-        string(JSON MDBOOK_OUTPUT SET "{}" "${MDBOOK_RENDERER}" "${MDBOOK_OUTPUT_RENDERER}")
+        string(JSON MDBOOK_OUTPUT SET "{}" "${MDBOOK_RENDERER}" "${MDBOOK_OUTPUT__RENDERER}")
     endblock()
-    set(ENV_MDBOOK_OUTPUT                         "${MDBOOK_OUTPUT}")       # [output]
-    set(ENV_MDBOOK_BOOK__LANGUAGE                 "${_LANGUAGE}")           # [book.language]
-    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER   "[\"links\"]")            # [preprocessor.gettext.after]
-    set(ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR  "${LOCALE_TO_BOOK_DIR}")  # [preprocessor.gettext.po-dir]
-    set(ENV_VARS_OF_COMMON
-        MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
-        MDBOOK_BOOK__LANGUAGE=${ENV_MDBOOK_BOOK__LANGUAGE}
-        MDBOOK_PREPROCESSOR__GETTEXT__AFTER=${ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER}
-        MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR=${ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR})
+    block(PROPAGATE MDBOOK_PREPROCESSOR)
+        execute_process(
+            COMMAND ${Dasel_EXECUTABLE}
+                    --file book.toml
+                    --read toml
+                    --write json
+                    "preprocessor"
+            WORKING_DIRECTORY ${PROJ_OUT_REPO_BOOK_DIR}
+            RESULT_VARIABLE RES_VAR
+            OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+        if (RES_VAR EQUAL 0)
+            set(MDBOOK_PREPROCESSOR "${OUT_VAR}")
+        else()
+            set(MDBOOK_PREPROCESSOR "{}")
+        endif()
+        set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
+        string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
+        string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
+        string(JSON MDBOOK_PREPROCESSOR SET     "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
+        string(JSON MDBOOK_PREPROCESSOR REMOVE  "${MDBOOK_PREPROCESSOR}" "guide-helper")  # Incompatible with mdbook@0.4
+    endblock()
+    set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
+    set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]
+    set(ENV_MDBOOK_PREPROCESSOR     "${MDBOOK_PREPROCESSOR}")   # [preprocessor]
+    set(ENV_VARS_OF_COMMON          MDBOOK_BOOK__LANGUAGE=${ENV_MDBOOK_BOOK__LANGUAGE}
+                                    MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
+                                    MDBOOK_PREPROCESSOR=${ENV_MDBOOK_PREPROCESSOR})
     remove_cmake_message_indent()
     message("")
-    message("ENV_MDBOOK_OUTPUT                          = ${ENV_MDBOOK_OUTPUT}")
-    message("ENV_MDBOOK_BOOK__LANGUAGE                  = ${ENV_MDBOOK_BOOK__LANGUAGE}")
-    message("ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER    = ${ENV_MDBOOK_PREPROCESSOR__GETTEXT__AFTER}")
-    message("ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR   = ${ENV_MDBOOK_PREPROCESSOR__GETTEXT__PO_DIR}")
+    message("ENV_MDBOOK_BOOK__LANGUAGE  = ${ENV_MDBOOK_BOOK__LANGUAGE}")
+    message("ENV_MDBOOK_OUTPUT          = ${ENV_MDBOOK_OUTPUT}")
+    message("ENV_MDBOOK_PREPROCESSOR    = ${ENV_MDBOOK_PREPROCESSOR}")
     message("")
     message("mdbook build:")
     message("  ${PROJ_OUT_REPO_BOOK_DIR}")
@@ -220,9 +242,9 @@ restore_cmake_message_indent()
 #]============================================================]
 
 
-set(UPSTREAM_DOCS   "https://www.sphinx-doc.org")
-set(UPSTREAM_REPO   "https://github.com/sphinx-doc/sphinx")
-set(INSERT_POINT    "div[role=\"main\"]")
+set(UPSTREAM_DOCS   "https://rust-lang.github.io/mdBook")
+set(UPSTREAM_REPO   "https://github.com/rust-lang/mdBook")
+set(INSERT_POINT    "main")
 
 
 message(STATUS "Configuring 'ltd-provenance.js' file to the version subdir of the renderer directory...")
@@ -322,7 +344,7 @@ restore_cmake_message_indent()
 #]============================================================]
 
 
-message(STATUS "The '${SPHINX_BUILDER}' documentation is built succesfully!")
+message(STATUS "The '${MDBOOK_RENDERER}' documentation is built succesfully!")
 remove_cmake_message_indent()
 message("")
 foreach(_LANGUAGE ${LANGUAGE_LIST})

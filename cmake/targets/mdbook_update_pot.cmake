@@ -89,22 +89,55 @@ message(STATUS "Running 'mdbook build' command to generate .pot files...")
 if (CMAKE_HOST_LINUX)
     set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
     set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{LD_LIBRARY_PATH}")
+    set(ENV_CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}")
     set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
-                                LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH})
+                                LD_LIBRARY_PATH=${ENV_LD_LIBRARY_PATH}
+                                CARGO_INSTALL_ROOT=${ENV_CARGO_INSTALL_ROOT})
 elseif (CMAKE_HOST_WIN32)
     set(ENV_PATH                "${PROJ_CONDA_DIR}/bin"
                                 "${PROJ_CONDA_DIR}/Scripts"
                                 "${PROJ_CONDA_DIR}/Library/bin"
                                 "${PROJ_CONDA_DIR}"
                                 "$ENV{PATH}")
+    set(ENV_CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}/Library")
     string(REPLACE ";" "\\\\;" ENV_PATH "${ENV_PATH}")
-    set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH})
+    set(ENV_VARS_OF_SYSTEM      PATH=${ENV_PATH}
+                                CARGO_INSTALL_ROOT=${ENV_CARGO_INSTALL_ROOT})
 else()
     message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
 endif()
-set(ENV_MDBOOK_OUTPUT           "{\"xgettext\": {\"depth\": ${MDBOOK_XGETTEXT_DEPTH}}}")
-set(ENV_VARS_OF_COMMON          MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT})
+block(PROPAGATE MDBOOK_OUTPUT)
+    set(MDBOOK_OUTPUT "{}")
+    set(MDBOOK_OUTPUT__XGETTEXT "{}")
+    string(JSON MDBOOK_OUTPUT__XGETTEXT SET "${MDBOOK_OUTPUT__XGETTEXT}" "depth" "${MDBOOK_XGETTEXT_DEPTH}")
+    string(JSON MDBOOK_OUTPUT           SET "${MDBOOK_OUTPUT}" "xgettext" "${MDBOOK_OUTPUT__XGETTEXT}")
+endblock()
+block(PROPAGATE MDBOOK_PREPROCESSOR)
+    execute_process(
+        COMMAND ${Dasel_EXECUTABLE}
+                --file book.toml
+                --read toml
+                --write json
+                "preprocessor"
+        WORKING_DIRECTORY ${PROJ_OUT_REPO_BOOK_DIR}
+        RESULT_VARIABLE RES_VAR
+        OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+    if (RES_VAR EQUAL 0)
+        set(MDBOOK_PREPROCESSOR "${OUT_VAR}")
+    else()
+        set(MDBOOK_PREPROCESSOR "{}")
+    endif()
+    string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper") # Incompatible with mdbook@0.4
+endblock()
+set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]
+set(ENV_MDBOOK_PREPROCESSOR     "${MDBOOK_PREPROCESSOR}")   # [preprocessor]
+set(ENV_VARS_OF_COMMON          MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
+                                MDBOOK_PREPROCESSOR=${ENV_MDBOOK_PREPROCESSOR})
 remove_cmake_message_indent()
+message("")
+message("ENV_MDBOOK_OUTPUT          = ${ENV_MDBOOK_OUTPUT}")
+message("ENV_MDBOOK_PREPROCESSOR    = ${ENV_MDBOOK_PREPROCESSOR}")
 message("")
 message("mdbook build:")
 message("  ${PROJ_OUT_REPO_BOOK_DIR}")
