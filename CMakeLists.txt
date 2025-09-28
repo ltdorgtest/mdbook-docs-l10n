@@ -149,23 +149,15 @@ get_members_of_json_object(
 # - For "master":
 #   - Set VERSION_TYPE    to "branch"
 #   - Set BRANCH_NAME     to "master"
-# - For "latest":
-#   - Set VERSION_TYPE    to "tag"
-#   - Set TAG_PATTERN     to "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$"
-#   - Set TAG_SUFFIX      to "-rc"
 # - For "[MAJOR].[MINOR]":
 #   - Set VERSION_TYPE    to "tag"
 #   - Set TAG_PATTERN     to "^v([MAJOR])\\.([MINOR])\\.([0-9]+)(-rc[1-9][0-9]*)?$"
 #   - Set TAG_SUFFIX      to "-rc"
 #]============================================================]
 
-if     (VERSION MATCHES "^master$")
+if     (VERSION MATCHES "^(master)$")
     set(VERSION_TYPE    "branch")
     set(BRANCH_NAME     "master")
-elseif (VERSION MATCHES "^latest$")
-    set(VERSION_TYPE    "tag")
-    set(TAG_PATTERN     "^v([0-9]+)\\.([0-9]+)\\.([0-9]+)(-rc[1-9][0-9]*)?$")
-    set(TAG_SUFFIX      "-rc")
 elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
     set(MAJOR           "${CMAKE_MATCH_1}")
     set(MINOR           "${CMAKE_MATCH_2}")
@@ -185,7 +177,7 @@ if (LANGUAGE STREQUAL "all")
     set(LANGUAGE_IS_VALID TRUE)
 else()
     foreach(_LANGUAGE ${LANGUAGE_LIST})
-        if (LANGUAGE STREQUAL _LANGUAGE)
+        if (_LANGUAGE STREQUAL LANGUAGE)
             set(LANGUAGE_IS_VALID TRUE)
         endif()
     endforeach()
@@ -229,15 +221,15 @@ endif()
 #]============================================================]
 
 if     (VERSION MATCHES "^(master)$")
-    set(VERSION_OF_RUST               "")
-    set(VERSION_OF_DASEL              "")
-    set(VERSION_OF_MDBOOK             "^0.4")
-    set(VERSION_OF_MDBOOK_I18N_HELPER "")
+    set(VERSION_OF_RUST                 "1.90")
+    set(VERSION_OF_DASEL                "2")
+    set(VERSION_OF_MDBOOK               "^0.4")
+    set(VERSION_OF_MDBOOK_I18N_HELPER   "0.3.6")
 elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
-    set(VERSION_OF_RUST               "")
-    set(VERSION_OF_DASEL              "")
-    set(VERSION_OF_MDBOOK             "^${VERSION}")
-    set(VERSION_OF_MDBOOK_I18N_HELPER "")
+    set(VERSION_OF_RUST                 "1.90")
+    set(VERSION_OF_DASEL                "2")
+    set(VERSION_OF_MDBOOK               "^${VERSION}")
+    set(VERSION_OF_MDBOOK_I18N_HELPER   "0.3.6")
 else()
     message(FATAL_ERROR "Invalid VERSION value. (${VERSION})")
 endif()
@@ -532,39 +524,3 @@ if (AUTO_DEPEND)
     add_dependencies(gettext_update_po      mdbook_update_pot)
     add_dependencies(mdbook_build_docs      gettext_update_po)
 endif()
-
-
-# set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
-#                         "${PROJ_CONDA_DIR}/Library")
-# find_package(Dasel      MODULE REQUIRED)
-# # block(PROPAGATE MDBOOK_OUTPUT)
-# #     set(MDBOOK_OUTPUT "{}")
-# #     set(MDBOOK_OUTPUT__XGETTEXT "{}")
-# #     string(JSON MDBOOK_OUTPUT__XGETTEXT SET "${MDBOOK_OUTPUT__XGETTEXT}" "depth" "${MDBOOK_XGETTEXT_DEPTH}")
-# #     string(JSON MDBOOK_OUTPUT           SET "${MDBOOK_OUTPUT}" "xgettext" "${MDBOOK_OUTPUT__XGETTEXT}")
-# # endblock()
-# # message(STATUS "MDBOOK_OUTPUT: ${MDBOOK_OUTPUT}")
-# block(PROPAGATE MDBOOK_PREPROCESSOR)
-#     execute_process(
-#         COMMAND ${Dasel_EXECUTABLE}
-#                 --file book.toml
-#                 --read toml
-#                 --write json
-#                 "preprocessor"
-#         WORKING_DIRECTORY ${PROJ_OUT_REPO_BOOK_DIR}
-#         RESULT_VARIABLE RES_VAR
-#         OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
-#         ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
-#     if (RES_VAR EQUAL 0)
-#         set(MDBOOK_PREPROCESSOR "${OUT_VAR}")
-#     else()
-#         set(MDBOOK_PREPROCESSOR "{}")
-#     endif()
-#     set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
-#     string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
-#     string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
-#     string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
-#     # string(JSON MDBOOK_PREPROCESSOR REMOVE  "${MDBOOK_PREPROCESSOR}" "guide-helper")
-#     message(STATUS "MDBOOK_PREPROCESSOR: ${MDBOOK_PREPROCESSOR}")
-# endblock()
-# message(STATUS "MDBOOK_PREPROCESSOR: ${MDBOOK_PREPROCESSOR}")
