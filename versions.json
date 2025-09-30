@@ -7,10 +7,6 @@
   ],
   "rel" : [
     {
-      "VERSION" : "latest",
-      "VERSION_COMPENDIUM" : "master"
-    },
-    {
       "VERSION" : "0.4",
       "VERSION_COMPENDIUM" : "master"
     }

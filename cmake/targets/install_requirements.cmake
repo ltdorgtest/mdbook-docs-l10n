@@ -198,18 +198,13 @@ if (VERSION MATCHES "^(master)$")
     else()
         message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
     endif()
-    if (NOT VERSION_OF_MDBOOK STREQUAL "")
-        set(VERSION_OF_MDBOOK "@${VERSION_OF_MDBOOK}")
-    endif()
     remove_cmake_message_indent()
-    message("")
-    message("VERSION_OF_MDBOOK  = ${VERSION_OF_MDBOOK}")
     message("")
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E env
                 ${ENV_VARS_OF_SYSTEM}
                 ${Cargo_EXECUTABLE} install
-                mdbook${VERSION_OF_MDBOOK}
+                mdbook@^0.4
         ECHO_OUTPUT_VARIABLE
         ECHO_ERROR_VARIABLE
         RESULT_VARIABLE RES_VAR

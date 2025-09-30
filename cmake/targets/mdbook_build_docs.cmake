@@ -145,8 +145,8 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
-        string(JSON MDBOOK_PREPROCESSOR SET     "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
-        string(JSON MDBOOK_PREPROCESSOR REMOVE  "${MDBOOK_PREPROCESSOR}" "guide-helper")  # Incompatible with mdbook@0.4
+        string(JSON MDBOOK_PREPROCESSOR SET    "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
+        string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")  # Incompatible with mdbook@0.4
     endblock()
     set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
     set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]
