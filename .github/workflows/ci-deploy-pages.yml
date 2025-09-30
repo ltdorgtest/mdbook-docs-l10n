@@ -4,10 +4,10 @@
 name: ci-deploy-pages
 
 on:
-  # Triggers the workflow when the 'sphinx-build-docs' workflow is completed.
+  # Triggers the workflow when the 'mdbook-build-docs' workflow is completed.
   repository_dispatch:
     types:
-      - sphinx-build-docs
+      - mdbook-build-docs
   # Triggers the workflow manually through the GitHub UI.
   workflow_dispatch:
     inputs:
@@ -29,7 +29,7 @@ jobs:
   precondition:
     if: ${{ ( github.repository == 'ltdorgtest/mdbook-docs-l10n' ) &&
             ( ( github.event_name == 'repository_dispatch' &&
-                github.event.action == 'sphinx-build-docs' ) ) ||
+                github.event.action == 'mdbook-build-docs' ) ) ||
               ( github.event_name == 'workflow_dispatch' ) }}
     runs-on: ${{ vars.RUNNER }}
     steps:
@@ -105,7 +105,7 @@ jobs:
     needs: [ 'precondition' ]
     if: ${{ ( github.repository == 'ltdorgtest/mdbook-docs-l10n' ) &&
             ( ( github.event_name == 'repository_dispatch' &&
-                github.event.action == 'sphinx-build-docs' ) ) ||
+                github.event.action == 'mdbook-build-docs' ) ) ||
               ( github.event_name == 'workflow_dispatch' ) }}
     permissions:
       id-token: write
