@@ -31,8 +31,7 @@ on:
         default: 'dev'
         options:
           - 'dev'
-          - 'v3'
-          - 'v4'
+          - 'rel'
       MODE_OF_UPDATE:
         description: 'MODE_OF_UPDATE input'
         required: true
