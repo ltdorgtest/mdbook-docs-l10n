@@ -73,6 +73,14 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
 
 
     if (NOT _LANGUAGE STREQUAL LANGUAGE_SOURCE)
+        # TODO: Remove this workaround once mdbook-i18n-helpers supports multiple .po files.
+        #
+        # Refer to: https://github.com/google/mdbook-i18n-helpers/issues/185
+        #
+        # Currently, mdbook-i18n-helpers cannot translate the book with a tree of .po files.
+        # Therefore, we need to concatenate all .po files for each language into a single
+        # file using msgcat before mdbook can process the translations. Once the issue is
+        # resolved, this entire concatenation step can be removed.
         message(STATUS "Running 'msgcat' command to concatenate translations of '${VERSION}' version for '${_LANGUAGE}' language...")
         set(PO_LOCALE_DIR   "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}")
         set(PO_SINGLE_FILE  "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}.po")
@@ -145,8 +153,9 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
-        string(JSON MDBOOK_PREPROCESSOR SET    "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
-        string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")  # Incompatible with mdbook@0.4
+        string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
+        # TODO: Remove the following line once the mdbook-i18n-helpers is compatible with mdbook@^0.5
+        string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")
     endblock()
     set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
     set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]

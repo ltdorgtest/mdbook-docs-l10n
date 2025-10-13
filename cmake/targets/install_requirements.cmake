@@ -177,7 +177,7 @@ find_package(Cargo  MODULE REQUIRED)
 
 
 if (VERSION MATCHES "^(master)$")
-    message(STATUS "Running 'cargo install' command to the 'mdbook' package...")
+    message(STATUS "Running 'cargo install' command to install 'mdbook' package...")
     if (CMAKE_HOST_LINUX)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
         set(ENV_LD_LIBRARY_PATH     "${PROJ_CONDA_DIR}/lib:$ENV{ENV_LD_LIBRARY_PATH}")
@@ -342,7 +342,7 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "The followings are the installed packages in the Conda Environment...")
+message(STATUS "The followings are the conda-installed packages in the Conda Environment...")
 execute_process(
     COMMAND ${Conda_EXECUTABLE} list --export --prefix ${PROJ_CONDA_DIR}
     RESULT_VARIABLE RES_VAR
@@ -351,8 +351,8 @@ execute_process(
 remove_cmake_message_indent()
 message("")
 if (RES_VAR EQUAL 0)
-    set(INSTALLED_PACKAGES  "${OUT_VAR}")
-    message("${INSTALLED_PACKAGES}")
+    set(CONDA_INSTALLED_PACKAGES  "${OUT_VAR}")
+    message("${CONDA_INSTALLED_PACKAGES}")
     if (ERR_VAR)
         string(APPEND WARNING_REASON
         "The command succeeded with warnings.\n\n"
@@ -371,5 +371,35 @@ message("")
 restore_cmake_message_indent()
 
 
-file(WRITE "${PREV_REFERENCE_TXT_PATH}" "${CURRENT_REFERENCE}")
-file(WRITE "${PREV_PACKAGES_TXT_PATH}"  "${INSTALLED_PACKAGES}")
+message(STATUS "The followings are the cargo-installed packages in the Conda Environment...")
+execute_process(
+    COMMAND ${Cargo_EXECUTABLE} install --list --path ${PROJ_OUT_REPO_DIR}
+    RESULT_VARIABLE RES_VAR
+    OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
+    ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
+remove_cmake_message_indent()
+message("")
+if (RES_VAR EQUAL 0)
+    set(CARGO_INSTALLED_PACKAGES  "${OUT_VAR}")
+    message("${CARGO_INSTALLED_PACKAGES}")
+    if (ERR_VAR)
+        string(APPEND WARNING_REASON
+        "The command succeeded with warnings.\n\n"
+        "    result:\n\n${RES_VAR}\n\n"
+        "    stderr:\n\n${ERR_VAR}")
+        message("${WARNING_REASON}")
+    endif()
+else()
+    string(APPEND FAILURE_REASON
+    "The command failed with fatal errors.\n"
+    "    result:\n${RES_VAR}\n"
+    "    stderr:\n${ERR_VAR}")
+    message(FATAL_ERROR "${FAILURE_REASON}")
+endif()
+message("")
+restore_cmake_message_indent()
+
+
+file(WRITE "${PREV_REFERENCE_TXT_PATH}"       "${CURRENT_REFERENCE}")
+file(WRITE "${PREV_CONDA_PACKAGES_TXT_PATH}"  "${CONDA_INSTALLED_PACKAGES}")
+file(WRITE "${PREV_CARGO_PACKAGES_TXT_PATH}"  "${CARGO_INSTALLED_PACKAGES}")
