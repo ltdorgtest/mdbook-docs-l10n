@@ -155,6 +155,8 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
         string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
         # TODO: Remove the following line once the mdbook-i18n-helpers is compatible with mdbook@^0.5
+        #
+        # Currently, the "guide-helper" preprocessor is incompatible with the latest mdbook-i18n-helpers.
         string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")
     endblock()
     set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
