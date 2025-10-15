@@ -154,9 +154,15 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
         string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
-        # TODO: Remove the following line once the mdbook-i18n-helpers is compatible with mdbook@^0.5
+        # TODO: Remove the following line once the mdbook-i18n-helpers is compatible with mdbook@0.5.0
         #
         # Currently, the "guide-helper" preprocessor is incompatible with the latest mdbook-i18n-helpers.
+        # Therfore, the workaround is to use mdbook@^0.4 to build the book of the 0.5 or master version.
+        # However, the mdbook@^0.4 is imcompatible with the "guide-helper" preprocess.
+        #
+        # See the following issues for more details:
+        # - https://github.com/rust-lang/mdBook/issues/2835
+        # - https://github.com/google/mdbook-i18n-helpers/issues/278
         string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")
     endblock()
     set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
