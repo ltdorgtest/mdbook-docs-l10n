@@ -40,7 +40,7 @@ on:
 
 env:
   CRON_dev: '0 4 * * 1'
-  CRON_rel: '0 4 1 * *'
+  CRON_rel: '0 4 * * 2'
 
 jobs:
   precondition:
