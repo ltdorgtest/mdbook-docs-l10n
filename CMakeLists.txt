@@ -67,13 +67,13 @@ set(MDBOOK_RENDERER "html"
     # See https://rust-lang.github.io/mdBook/format/configuration/renderers.html for details.
 
 set(MDBOOK_XGETTEXT_DEPTH 5
-    CACHE STRING "The depth on which to split the .pot files.")
+    CACHE STRING "The tree depth at which to split the generated .pot files.")
     # Possible values are positive integers.
     # Passed to override the 'output.xgettext.depth' configuration.
     # See https://github.com/google/mdbook-i18n-helpers/blob/main/i18n-helpers/USAGE.md for details.
 
 set(GETTEXT_WRAP_WIDTH 79
-    CACHE STRING "The Gettext wrap width for .pot/.po files.")
+    CACHE STRING "The maximum width for wraping .pot and .po files.")
     # Possible values are positive integers.
     # Passed to msgcat and msgmerge as --width=${GETTEXT_WRAP_WIDTH}.
     # See https://www.gnu.org/software/gettext/manual/html_node/msgcat-Invocation.html
