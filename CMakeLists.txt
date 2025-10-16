@@ -25,11 +25,11 @@ endif()
 #]============================================================]
 
 set(LANGUAGE "all"
-    CACHE STRING "The language code of the documentation.")
+    CACHE STRING "The language of the documentation.")
     # Possible values are "all" and languages listed in languages.json.
 
 set(LANGUAGE_SOURCE "en_US"
-    CACHE STRING "The source language code of the documentation")
+    CACHE STRING "The source language of the documentation")
     # Possible values are "en_US".
 
 set(VERSION "master"
@@ -41,41 +41,49 @@ set(VERSION_COMPENDIUM "master"
     # Possible values are NULL and versions listed in versions.json.
 
 set(AUTO_DEPEND ON
-    CACHE BOOL "Enable automatic dependency management for specific build targets.")
+    CACHE BOOL "Whether to enable automatic dependency management for specific build targets.")
     # Possible values are "ON/OFF", "TRUE/FALSE", "true/false"...etc.
 
 set(REMOVE_REDUNDANT ON
-    CACHE BOOL "Removing redundant files after building documentation.")
+    CACHE BOOL "Whether to remove redundant files after building documentation.")
     # Possible values are "ON/OFF", "TRUE/FALSE", "true/false"...etc.
 
 set(MODE_OF_UPDATE "NEVER"
-    CACHE STRING "Mode of updating .pot/.po files.")
+    CACHE STRING "The mode of updating .pot/.po files.")
     # Possible values are "NEVER", "COMPARE", and "ALWAYS".
-    # 1) NEVER:   Update .pot/.po files only if the current reference is missing.
-    # 2) COMPARE: Update .pot/.po files only if the current reference is different than the latest one.
-    # 3) ALWAYS:  Update .pot/.po files even if the current reference is the same as    the latest one.
+    # (1) NEVER:    Update .pot/.po files only if the current reference is missing.
+    # (2) COMPARE:  Update .pot/.po files only if the current reference is different than the latest one.
+    # (3) ALWAYS:   Update .pot/.po files even if the current reference is the same as    the latest one.
 
 set(MODE_OF_INSTALL "COMPARE"
-    CACHE STRING "Mode of installing the requirements.")
+    CACHE STRING "The mode of installing the requirements.")
     # Possible values are "COMPARE" and "ALWAYS".
-    # 1) COMPARE: Install the requirements only if the current reference is different than the previous one.
-    # 2) ALWAYS:  Install the requirements even if the current reference is the same as    the previous one.
+    # (1) COMPARE:  Install the requirements only if the current reference is different than the previous one.
+    # (2) ALWAYS:   Install the requirements even if the current reference is the same as    the previous one.
 
 set(MDBOOK_RENDERER "html"
     CACHE STRING "The renderer for the mdBook documentation system.")
     # Possible values are "html".
+    # See https://rust-lang.github.io/mdBook/format/configuration/renderers.html for details.
 
 set(MDBOOK_XGETTEXT_DEPTH 5
-    CACHE STRING "The Gettext mdBook depth, passed to xgettext.depth")
+    CACHE STRING "The depth on which to split the .pot files.")
+    # Possible values are positive integers.
+    # Passed to override the 'output.xgettext.depth' configuration.
+    # See https://github.com/google/mdbook-i18n-helpers/blob/main/i18n-helpers/USAGE.md for details.
 
 set(GETTEXT_WRAP_WIDTH 79
     CACHE STRING "The Gettext wrap width for .pot/.po files.")
+    # Possible values are positive integers.
+    # Passed to msgcat and msgmerge as --width=${GETTEXT_WRAP_WIDTH}.
+    # See https://www.gnu.org/software/gettext/manual/html_node/msgcat-Invocation.html
+    # and https://www.gnu.org/software/gettext/manual/html_node/msgmerge-Invocation.html for details.
 
 set(REMOTE_URL_OF_L10N "https://github.com/ltdorgtest/mdbook-docs-l10n.git"
-    CACHE STRING "Remote URL of the l10n Git repository.")
+    CACHE STRING "The remote URL of the 'l10n' repository.")
 
 set(REMOTE_URL_OF_DOCS "https://github.com/rust-lang/mdBook.git"
-    CACHE STRING "Remote URL of the docs Git repository.")
+    CACHE STRING "The remote URL of the 'docs' repository.")
 
 set(BASEURL_HREF "file://${PROJECT_SOURCE_DIR}/out/$CACHE{MDBOOK_RENDERER}"
     CACHE STRING "The base URL of the deployed documentation.")
