@@ -37,9 +37,9 @@
     "branch" : "master",
     "commit" : 
     {
-      "date" : "2025-09-28 23:21:34 +0000",
-      "hash" : "4e41c844c305bc6f34b79bf5580b9169b1fc6364",
-      "title" : "Merge pull request #2876 from ehuss/xtask-bump"
+      "date" : "2025-10-26 20:02:56 +0000",
+      "hash" : "f84b1a15b6d74c36b8829b2d40f4e23c8a5915b7",
+      "title" : "Merge pull request #2903 from ehuss/bump-version"
     }
   },
   "type" : "branch",
