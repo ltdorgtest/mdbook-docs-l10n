@@ -248,8 +248,14 @@ if (NOT "$CACHE{VERSION_OF_MDBOOK_I18N_HELPER}" STREQUAL "[default]")
 endif()
 
 #[============================================================[
+# Prepare SRC_TO_BOOK_DIR    for 'mdbook_update_pot' and
+                                 'mdbook_build_docs' targets.
 # Prepare LOCALE_TO_BOOK_DIR for 'mdbook_build_docs' taget.
 #]============================================================]
+
+file(RELATIVE_PATH SRC_TO_BOOK_DIR
+    "${PROJ_OUT_REPO_BOOK_DIR}"
+    "${PROJ_OUT_REPO_BOOK_SRC_DIR}")
 
 file(RELATIVE_PATH LOCALE_TO_BOOK_DIR
     "${PROJ_OUT_REPO_BOOK_DIR}"
@@ -348,6 +354,7 @@ message(STATUS "REFERENCES_JSON_PATH            = ${REFERENCES_JSON_PATH}")
 message(STATUS "STATISTICS_TXT_PATH             = ${STATISTICS_TXT_PATH}")
 message(STATUS "CROWDIN_YML_PATH                = ${CROWDIN_YML_PATH}")
 message(STATUS "---------- Other Variables ----------")
+message(STATUS "SRC_TO_BOOK_DIR                 = ${SRC_TO_BOOK_DIR}")
 message(STATUS "LOCALE_TO_BOOK_DIR              = ${LOCALE_TO_BOOK_DIR}")
 message(STATUS "LANGUAGE_LIST                   = ${LANGUAGE_LIST}")
 message(STATUS "VERSION_TYPE                    = ${VERSION_TYPE}")
@@ -440,6 +447,7 @@ set(SCRIPT_MODE_CACHE
     -D STATISTICS_TXT_PATH=${STATISTICS_TXT_PATH}
     -D CROWDIN_YML_PATH=${CROWDIN_YML_PATH}
     # [Other Variables]
+    -D SRC_TO_BOOK_DIR=${SRC_TO_BOOK_DIR}
     -D LOCALE_TO_BOOK_DIR=${LOCALE_TO_BOOK_DIR}
     -D LANGUAGE_LIST=${LANGUAGE_LIST}
     -D VERSION_TYPE=${VERSION_TYPE}

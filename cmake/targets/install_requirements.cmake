@@ -282,7 +282,7 @@ else()
 endif()
 
 
-find_package(mdBook    MODULE REQUIRED)
+find_package(mdBook    MODULE REQUIRED COMPONENTS mdBook)
 
 
 message(STATUS "Running 'cargo install' command to the requirements...")

@@ -14,7 +14,7 @@ set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
 find_package(Git        MODULE REQUIRED)
 find_package(Gettext    MODULE REQUIRED COMPONENTS Msgcat Msgmerge)
 find_package(Dasel      MODULE REQUIRED)
-find_package(mdBook     MODULE REQUIRED)
+find_package(mdBook     MODULE REQUIRED COMPONENTS mdBook)
 include(LogUtils)
 include(GitUtils)
 include(JsonUtils)
@@ -106,6 +106,9 @@ elseif (CMAKE_HOST_WIN32)
 else()
     message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
 endif()
+block(PROPAGATE MDBOOK_BOOK__SRC)
+    set(MDBOOK_BOOK__SRC        "${SRC_TO_BOOK_DIR}")
+endblock()
 block(PROPAGATE MDBOOK_OUTPUT)
     set(MDBOOK_OUTPUT "{}")
     set(MDBOOK_OUTPUT__XGETTEXT "{}")
@@ -139,12 +142,15 @@ block(PROPAGATE MDBOOK_PREPROCESSOR)
     # - https://github.com/google/mdbook-i18n-helpers/issues/278
     string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")
 endblock()
+set(ENV_MDBOOK_BOOK__SRC        "${MDBOOK_BOOK__SRC}")      # [book.src]
 set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]
 set(ENV_MDBOOK_PREPROCESSOR     "${MDBOOK_PREPROCESSOR}")   # [preprocessor]
-set(ENV_VARS_OF_COMMON          MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
+set(ENV_VARS_OF_COMMON          MDBOOK_BOOK__SRC=${ENV_MDBOOK_BOOK__SRC}
+                                MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
                                 MDBOOK_PREPROCESSOR=${ENV_MDBOOK_PREPROCESSOR})
 remove_cmake_message_indent()
 message("")
+message("ENV_MDBOOK_BOOK__SRC       = ${ENV_MDBOOK_BOOK__SRC}")
 message("ENV_MDBOOK_OUTPUT          = ${ENV_MDBOOK_OUTPUT}")
 message("ENV_MDBOOK_PREPROCESSOR    = ${ENV_MDBOOK_PREPROCESSOR}")
 message("")

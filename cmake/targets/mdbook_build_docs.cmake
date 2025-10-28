@@ -14,7 +14,7 @@ set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
 find_package(Git        MODULE REQUIRED)
 find_package(Gettext    MODULE REQUIRED COMPONENTS Msgcat Msgmerge)
 find_package(Dasel      MODULE REQUIRED)
-find_package(mdBook     MODULE REQUIRED)
+find_package(mdBook     MODULE REQUIRED COMPONENTS mdBook)
 include(LogUtils)
 include(JsonUtils)
 include(GettextUtils)
@@ -116,6 +116,11 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
     else()
         message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
     endif()
+    block(PROPAGATE MDBOOK_BOOK__SRC
+                    MDBOOK_BOOK__LANGUAGE)
+        set(MDBOOK_BOOK__SRC        "${SRC_TO_BOOK_DIR}")
+        set(MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")
+    endblock()
     block(PROPAGATE MDBOOK_OUTPUT)
         execute_process(
             COMMAND ${Dasel_EXECUTABLE}
@@ -165,14 +170,17 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         # - https://github.com/google/mdbook-i18n-helpers/issues/278
         string(JSON MDBOOK_PREPROCESSOR REMOVE "${MDBOOK_PREPROCESSOR}" "guide-helper")
     endblock()
-    set(ENV_MDBOOK_BOOK__LANGUAGE   "${_LANGUAGE}")             # [book.language]
-    set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")         # [output]
-    set(ENV_MDBOOK_PREPROCESSOR     "${MDBOOK_PREPROCESSOR}")   # [preprocessor]
-    set(ENV_VARS_OF_COMMON          MDBOOK_BOOK__LANGUAGE=${ENV_MDBOOK_BOOK__LANGUAGE}
+    set(ENV_MDBOOK_BOOK__SRC        "${MDBOOK_BOOK__SRC}")          # [book.src]
+    set(ENV_MDBOOK_BOOK__LANGUAGE   "${MDBOOK_BOOK__LANGUAGE}")     # [book.language]
+    set(ENV_MDBOOK_OUTPUT           "${MDBOOK_OUTPUT}")             # [output]
+    set(ENV_MDBOOK_PREPROCESSOR     "${MDBOOK_PREPROCESSOR}")       # [preprocessor]
+    set(ENV_VARS_OF_COMMON          MDBOOK_BOOK__SRC=${ENV_MDBOOK_BOOK__SRC}
+                                    MDBOOK_BOOK__LANGUAGE=${ENV_MDBOOK_BOOK__LANGUAGE}
                                     MDBOOK_OUTPUT=${ENV_MDBOOK_OUTPUT}
                                     MDBOOK_PREPROCESSOR=${ENV_MDBOOK_PREPROCESSOR})
     remove_cmake_message_indent()
     message("")
+    message("ENV_MDBOOK_BOOK__SRC       = ${ENV_MDBOOK_BOOK__SRC}")
     message("ENV_MDBOOK_BOOK__LANGUAGE  = ${ENV_MDBOOK_BOOK__LANGUAGE}")
     message("ENV_MDBOOK_OUTPUT          = ${ENV_MDBOOK_OUTPUT}")
     message("ENV_MDBOOK_PREPROCESSOR    = ${ENV_MDBOOK_PREPROCESSOR}")
