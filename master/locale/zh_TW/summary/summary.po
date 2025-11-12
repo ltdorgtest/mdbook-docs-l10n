@@ -13,19 +13,19 @@ msgstr ""
 
 #: src/SUMMARY.md:1
 msgid "Summary"
-msgstr ""
+msgstr "摘要"
 
 #: src/SUMMARY.md:3
 msgid "Introduction"
-msgstr ""
+msgstr "簡介"
 
 #: src/SUMMARY.md:5
 msgid "User guide"
-msgstr ""
+msgstr "使用者指南"
 
 #: src/SUMMARY.md:7
 msgid "Installation"
-msgstr ""
+msgstr "安裝"
 
 #: src/SUMMARY.md:8
 msgid "Reading books"

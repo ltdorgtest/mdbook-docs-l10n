@@ -26,9 +26,9 @@
       "branch" : "master",
       "commit" : 
       {
-        "date" : "2025-09-28 23:21:34 +0000",
-        "hash" : "4e41c844c305bc6f34b79bf5580b9169b1fc6364",
-        "title" : "Merge pull request #2876 from ehuss/xtask-bump"
+        "date" : "2025-10-28 01:44:41 +0000",
+        "hash" : "3fa49214adc56563ce9f78ccb28b28d0243ddc86",
+        "title" : "Merge pull request #2905 from ehuss/fix-indented-code-block"
       }
     }
   },
@@ -37,9 +37,9 @@
     "branch" : "master",
     "commit" : 
     {
-      "date" : "2025-09-28 23:21:34 +0000",
-      "hash" : "4e41c844c305bc6f34b79bf5580b9169b1fc6364",
-      "title" : "Merge pull request #2876 from ehuss/xtask-bump"
+      "date" : "2025-10-28 01:44:41 +0000",
+      "hash" : "3fa49214adc56563ce9f78ccb28b28d0243ddc86",
+      "title" : "Merge pull request #2905 from ehuss/fix-indented-code-block"
     }
   },
   "type" : "branch",
