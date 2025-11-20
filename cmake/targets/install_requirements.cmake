@@ -194,10 +194,13 @@ message("")
 restore_cmake_message_indent()
 
 
-find_package(Rust   MODULE REQUIRED COMPONENTS Cargo)
+find_package(Rust       MODULE REQUIRED COMPONENTS Cargo)
 
 
-if (VERSION MATCHES "^(master)$")
+if (  ( VERSION MATCHES "^(master)$" ) OR
+      ( VERSION MATCHES "^([0-9]+)\\.([0-9]+)$" AND
+        VERSION VERSION_LESS_EQUAL    "0.5"     AND
+        VERSION VERSION_GREATER_EQUAL "0.5" )   )
     message(STATUS "Running 'cargo install' command to install 'mdbook' package...")
     if (CMAKE_HOST_LINUX)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
@@ -378,6 +381,8 @@ execute_process(
     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
 remove_cmake_message_indent()
 message("")
+message("${PROJ_CONDA_DIR}")
+message("")
 if (RES_VAR EQUAL 0)
     set(CONDA_INSTALLED_PACKAGES  "${OUT_VAR}")
     message("${CONDA_INSTALLED_PACKAGES}")
@@ -400,12 +405,21 @@ restore_cmake_message_indent()
 
 
 message(STATUS "The followings are the cargo-installed packages in the Conda environment...")
+if (CMAKE_HOST_LINUX)
+    set(CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}")
+elseif (CMAKE_HOST_WIN32)
+    set(CARGO_INSTALL_ROOT  "${PROJ_CONDA_DIR}/Library")
+else()
+    message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
+endif()
 execute_process(
-    COMMAND ${Rust_CARGO_EXECUTABLE} install --list --path ${PROJ_OUT_REPO_DIR}
+    COMMAND ${Rust_CARGO_EXECUTABLE} install --list --root ${CARGO_INSTALL_ROOT}
     RESULT_VARIABLE RES_VAR
     OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)
 remove_cmake_message_indent()
+message("")
+message("${CARGO_INSTALL_ROOT}")
 message("")
 if (RES_VAR EQUAL 0)
     set(CARGO_INSTALLED_PACKAGES  "${OUT_VAR}")
