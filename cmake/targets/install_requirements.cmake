@@ -201,6 +201,14 @@ if (  ( VERSION MATCHES "^(master)$" ) OR
       ( VERSION MATCHES "^([0-9]+)\\.([0-9]+)$" AND
         VERSION VERSION_LESS_EQUAL    "0.5"     AND
         VERSION VERSION_GREATER_EQUAL "0.5" )   )
+    # TODO: Remove the following lines once the mdbook-i18n-helpers is compatible with mdbook@^0.5
+    #
+    # Currently, the "mdbook@^0.5" is incompatible with the latest "mdbook-i18n-helpers".
+    # Therfore, the workaround is to use "mdbook@^0.4" to build the book of the master or 0.5 version.
+    #
+    # See the following issues for more details:
+    # - https://github.com/rust-lang/mdBook/issues/2835
+    # - https://github.com/google/mdbook-i18n-helpers/issues/278
     message(STATUS "Running 'cargo install' command to install 'mdbook' package...")
     if (CMAKE_HOST_LINUX)
         set(ENV_PATH                "${PROJ_CONDA_DIR}/bin:$ENV{PATH}")
