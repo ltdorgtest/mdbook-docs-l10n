@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mdBook Documentation\n"
-"POT-Creation-Date: 2025-10-28T17:13:39+08:00\n"
+"POT-Creation-Date: 2025-11-19T23:06:28+08:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,45 +37,41 @@ msgid "For example:"
 msgstr ""
 
 #: src/format/configuration/environment-variables.md:15
-msgid "`MDBOOK_foo` -> `foo`"
+msgid "`MDBOOK_book` -> `book`"
 msgstr ""
 
 #: src/format/configuration/environment-variables.md:16
-msgid "`MDBOOK_FOO` -> `foo`"
+msgid "`MDBOOK_BOOK` -> `book`"
 msgstr ""
 
 #: src/format/configuration/environment-variables.md:17
-msgid "`MDBOOK_FOO__BAR` -> `foo.bar`"
+msgid "`MDBOOK_BOOK__TITLE` -> `book.title`"
 msgstr ""
 
 #: src/format/configuration/environment-variables.md:18
-msgid "`MDBOOK_FOO_BAR` -> `foo-bar`"
+msgid "`MDBOOK_BOOK__TEXT_DIRECTION` -> `book.text-direction`"
 msgstr ""
 
-#: src/format/configuration/environment-variables.md:19
-msgid "`MDBOOK_FOO_bar__baz` -> `foo-bar.baz`"
-msgstr ""
-
-#: src/format/configuration/environment-variables.md:21
+#: src/format/configuration/environment-variables.md:20
 msgid ""
 "So by setting the `MDBOOK_BOOK__TITLE` environment variable you can override "
 "the book's title without needing to touch your `book.toml`."
 msgstr ""
 
-#: src/format/configuration/environment-variables.md:24
+#: src/format/configuration/environment-variables.md:23
 msgid ""
 "**Note:** To facilitate setting more complex config items, the value of an "
 "environment variable is first parsed as JSON, falling back to a string if "
 "the parse fails."
 msgstr ""
 
-#: src/format/configuration/environment-variables.md:28
+#: src/format/configuration/environment-variables.md:27
 msgid ""
 "This means, if you so desired, you could override all book metadata when "
 "building the book with something like"
 msgstr ""
 
-#: src/format/configuration/environment-variables.md:31
+#: src/format/configuration/environment-variables.md:30
 msgid ""
 "```shell\n"
 "$ export MDBOOK_BOOK='{\"title\": \"My Awesome Book\", \"authors\": "
@@ -84,7 +80,7 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/format/configuration/environment-variables.md:36
+#: src/format/configuration/environment-variables.md:35
 msgid ""
 "The latter case may be useful in situations where `mdbook` is invoked from a "
 "script or CI, where it sometimes isn't possible to update the `book.toml` "
