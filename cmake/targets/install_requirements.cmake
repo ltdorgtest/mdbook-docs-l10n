@@ -100,6 +100,27 @@ message("")
 restore_cmake_message_indent()
 
 
+message(STATUS "Patching the repository for the '${VERSION}' version...")
+set(SRC_PATCH_DIR   "${PROJ_CMAKE_CUSTOM_DIR}/patch/${VERSION}")
+set(DST_PATCH_DIR   "${PROJ_OUT_REPO_DIR}")
+remove_cmake_message_indent()
+message("")
+message("From:  ${SRC_PATCH_DIR}")
+message("To:    ${DST_PATCH_DIR}")
+file(GLOB_RECURSE SRC_PATCH_FILES "${SRC_PATCH_DIR}/*")
+foreach(SRC_PATCH_FILE ${SRC_PATCH_FILES})
+    string(REPLACE "${SRC_PATCH_DIR}/" "" PATCH_FILE_RELATIVE "${SRC_PATCH_FILE}")
+    set(DST_PATCH_FILE "${DST_PATCH_DIR}/${PATCH_FILE_RELATIVE}")
+    get_filename_component(DST_PATCH_FILE_DIR "${DST_PATCH_FILE}" DIRECTORY)
+    file(MAKE_DIRECTORY "${DST_PATCH_FILE_DIR}")
+    file(COPY_FILE "${SRC_PATCH_FILE}" "${DST_PATCH_FILE}")
+    message("With:  ${DST_PATCH_FILE}")
+endforeach()
+unset(SRC_PATCH_FILE)
+message("")
+restore_cmake_message_indent()
+
+
 if (NOT INSTALL_REQUIRED)
     message(STATUS "No need to install the requirements.")
     return()
@@ -173,7 +194,7 @@ message("")
 restore_cmake_message_indent()
 
 
-find_package(Cargo  MODULE REQUIRED)
+find_package(Rust   MODULE REQUIRED COMPONENTS Cargo)
 
 
 if (VERSION MATCHES "^(master)$")
@@ -198,13 +219,16 @@ if (VERSION MATCHES "^(master)$")
     else()
         message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
     endif()
+    set(CRATE_OF_MDBOOK "mdbook@^0.4")
     remove_cmake_message_indent()
+    message("")
+    message("CRATE_OF_MDBOOK  = ${CRATE_OF_MDBOOK}")
     message("")
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E env
                 ${ENV_VARS_OF_SYSTEM}
-                ${Cargo_EXECUTABLE} install
-                mdbook@^0.4
+                ${Rust_CARGO_EXECUTABLE} install
+                ${CRATE_OF_MDBOOK}
         ECHO_OUTPUT_VARIABLE
         ECHO_ERROR_VARIABLE
         RESULT_VARIABLE RES_VAR
@@ -254,7 +278,7 @@ else()
     execute_process(
         COMMAND ${CMAKE_COMMAND} -E env
                 ${ENV_VARS_OF_SYSTEM}
-                ${Cargo_EXECUTABLE} install
+                ${Rust_CARGO_EXECUTABLE} install
                 --path ${PROJ_OUT_REPO_DIR}
                 --locked
         ECHO_OUTPUT_VARIABLE
@@ -306,18 +330,22 @@ elseif (CMAKE_HOST_WIN32)
 else()
     message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
 endif()
-if (NOT VERSION_OF_MDBOOK_I18N_HELPER STREQUAL "")
-    set(VERSION_OF_MDBOOK_I18N_HELPER "@${VERSION_OF_MDBOOK_I18N_HELPER}")
+if (NOT VERSION_OF_MDBOOK_I18N_HELPERS STREQUAL "")
+    set(CRATE_OF_MDBOOK_I18N_HELPERS "mdbook-i18n-helpers@${VERSION_OF_MDBOOK_I18N_HELPERS}")
+else()
+    set(CRATE_OF_MDBOOK_I18N_HELPERS "mdbook-i18n-helpers")
 endif()
 remove_cmake_message_indent()
 message("")
-message("VERSION_OF_MDBOOK_I18N_HELPER  = ${VERSION_OF_MDBOOK_I18N_HELPER}")
+message("VERSION_OF_MDBOOK_I18N_HELPERS = ${VERSION_OF_MDBOOK_I18N_HELPERS}")
+message("")
+message("CRATE_OF_MDBOOK_I18N_HELPERS   = ${CRATE_OF_MDBOOK_I18N_HELPERS}")
 message("")
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E env
             ${ENV_VARS_OF_SYSTEM}
-            ${Cargo_EXECUTABLE} install
-            mdbook-i18n-helpers${VERSION_OF_MDBOOK_I18N_HELPER}
+            ${Rust_CARGO_EXECUTABLE} install
+            ${CRATE_OF_MDBOOK_I18N_HELPERS}
     ECHO_OUTPUT_VARIABLE
     ECHO_ERROR_VARIABLE
     RESULT_VARIABLE RES_VAR
@@ -342,7 +370,7 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "The followings are the conda-installed packages in the Conda Environment...")
+message(STATUS "The followings are the conda-installed packages in the Conda environment...")
 execute_process(
     COMMAND ${Conda_EXECUTABLE} list --export --prefix ${PROJ_CONDA_DIR}
     RESULT_VARIABLE RES_VAR
@@ -371,9 +399,9 @@ message("")
 restore_cmake_message_indent()
 
 
-message(STATUS "The followings are the cargo-installed packages in the Conda Environment...")
+message(STATUS "The followings are the cargo-installed packages in the Conda environment...")
 execute_process(
-    COMMAND ${Cargo_EXECUTABLE} install --list --path ${PROJ_OUT_REPO_DIR}
+    COMMAND ${Rust_CARGO_EXECUTABLE} install --list --path ${PROJ_OUT_REPO_DIR}
     RESULT_VARIABLE RES_VAR
     OUTPUT_VARIABLE OUT_VAR OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_VARIABLE  ERR_VAR ERROR_STRIP_TRAILING_WHITESPACE)

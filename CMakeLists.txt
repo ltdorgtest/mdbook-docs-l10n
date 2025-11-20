@@ -94,8 +94,8 @@ set(VERSION_OF_RUST "[default]"
 set(VERSION_OF_DASEL "[default]"
     CACHE STRING "The version of Dasel to install.")
 
-set(VERSION_OF_MDBOOK_I18N_HELPER "[default]"
-    CACHE STRING "The version of mdbook-i18n-helper to install.")
+set(VERSION_OF_MDBOOK_I18N_HELPERS "[default]"
+    CACHE STRING "The version of mdbook-i18n-helpers to install.")
 
 #[============================================================[
 # Directory-Related Variables.
@@ -223,17 +223,17 @@ endif()
 
 #[============================================================[
 # Initialize VERSION_OF_XXX if CACHE{VERSION_OF_XXX} is "[default]".
-# Set VERSION_OF_XXX to $CACHE{VERSION_OF_XX} if it's not "[default]".
+# Set VERSION_OF_XXX to $CACHE{VERSION_OF_XXX} if it's not "[default]".
 #]============================================================]
 
 if     (VERSION MATCHES "^(master)$")
     set(VERSION_OF_RUST                 "1.90")
     set(VERSION_OF_DASEL                "2")
-    set(VERSION_OF_MDBOOK_I18N_HELPER   "0.3.6")
+    set(VERSION_OF_MDBOOK_I18N_HELPERS  "0.3.6")
 elseif (VERSION MATCHES "^([0-9]+)\\.([0-9]+)$")
     set(VERSION_OF_RUST                 "1.90")
     set(VERSION_OF_DASEL                "2")
-    set(VERSION_OF_MDBOOK_I18N_HELPER   "0.3.6")
+    set(VERSION_OF_MDBOOK_I18N_HELPERS  "0.3.6")
 else()
     message(FATAL_ERROR "Invalid VERSION value. (${VERSION})")
 endif()
@@ -243,14 +243,14 @@ endif()
 if (NOT "$CACHE{VERSION_OF_DASEL}" STREQUAL "[default]")
     set(VERSION_OF_DASEL "$CACHE{VERSION_OF_DASEL}")
 endif()
-if (NOT "$CACHE{VERSION_OF_MDBOOK_I18N_HELPER}" STREQUAL "[default]")
-    set(VERSION_OF_MDBOOK_I18N_HELPER "$CACHE{VERSION_OF_MDBOOK_I18N_HELPER}")
+if (NOT "$CACHE{VERSION_OF_MDBOOK_I18N_HELPERS}" STREQUAL "[default]")
+    set(VERSION_OF_MDBOOK_I18N_HELPERS "$CACHE{VERSION_OF_MDBOOK_I18N_HELPERS}")
 endif()
 
 #[============================================================[
 # Prepare SRC_TO_BOOK_DIR    for 'mdbook_update_pot' and
                                  'mdbook_build_docs' targets.
-# Prepare LOCALE_TO_BOOK_DIR for 'mdbook_build_docs' taget.
+# Prepare LOCALE_TO_BOOK_DIR for 'mdbook_build_docs' target.
 #]============================================================]
 
 file(RELATIVE_PATH SRC_TO_BOOK_DIR
@@ -324,7 +324,7 @@ message(STATUS "REMOTE_URL_OF_DOCS              = ${REMOTE_URL_OF_DOCS}")
 message(STATUS "BASEURL_HREF                    = ${BASEURL_HREF}")
 message(STATUS "VERSION_OF_RUST                 = ${VERSION_OF_RUST} (CACHE: $CACHE{VERSION_OF_RUST})")
 message(STATUS "VERSION_OF_DASEL                = ${VERSION_OF_DASEL} (CACHE: $CACHE{VERSION_OF_DASEL})")
-message(STATUS "VERSION_OF_MDBOOK_I18N_HELPER   = ${VERSION_OF_MDBOOK_I18N_HELPER} (CACHE: $CACHE{VERSION_OF_MDBOOK_I18N_HELPER})")
+message(STATUS "VERSION_OF_MDBOOK_I18N_HELPERS  = ${VERSION_OF_MDBOOK_I18N_HELPERS} (CACHE: $CACHE{VERSION_OF_MDBOOK_I18N_HELPERS})")
 message(STATUS "---------- Directory-Related Variables ----------")
 message(STATUS "PROJ_SOURCE_DIR                 = ${PROJ_SOURCE_DIR}")
 message(STATUS "PROJ_BINARY_DIR                 = ${PROJ_BINARY_DIR}")
@@ -417,7 +417,7 @@ set(SCRIPT_MODE_CACHE
     -D GETTEXT_WRAP_WIDTH=${GETTEXT_WRAP_WIDTH}
     -D VERSION_OF_RUST=${VERSION_OF_RUST}
     -D VERSION_OF_DASEL=${VERSION_OF_DASEL}
-    -D VERSION_OF_MDBOOK_I18N_HELPER=${VERSION_OF_MDBOOK_I18N_HELPER}
+    -D VERSION_OF_MDBOOK_I18N_HELPERS=${VERSION_OF_MDBOOK_I18N_HELPERS}
     # [Directory-Related Variables]
     -D PROJ_SOURCE_DIR=${PROJ_SOURCE_DIR}
     -D PROJ_BINARY_DIR=${PROJ_BINARY_DIR}
