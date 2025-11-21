@@ -156,6 +156,7 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
         endif()
         set(MDBOOK_PREPROCESSOR__GETTEXT "{}")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "after"  "[\"links\"]")
+        string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "before" "[\"admonish\"]")
         string(JSON MDBOOK_PREPROCESSOR__GETTEXT SET "${MDBOOK_PREPROCESSOR__GETTEXT}" "po-dir" "\"${LOCALE_TO_BOOK_DIR}\"")
         string(JSON MDBOOK_PREPROCESSOR          SET "${MDBOOK_PREPROCESSOR}" "gettext" "${MDBOOK_PREPROCESSOR__GETTEXT}")
         # TODO: Remove the following lines once the mdbook-i18n-helpers is compatible with mdbook@^0.5
