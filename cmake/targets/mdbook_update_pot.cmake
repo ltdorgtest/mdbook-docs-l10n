@@ -131,7 +131,7 @@ block(PROPAGATE MDBOOK_PREPROCESSOR)
     else()
         set(MDBOOK_PREPROCESSOR "{}")
     endif()
-    # TODO: Remove the following line once the mdbook-i18n-helpers is compatible with mdbook@0.5.0
+    # TODO: Remove the following lines once the mdbook-i18n-helpers is compatible with mdbook@^0.5
     #
     # Currently, the "guide-helper" preprocessor is incompatible with the latest mdbook-i18n-helpers.
     # Therfore, the workaround is to use mdbook@^0.4 to build the book of the 0.5 or master version.
