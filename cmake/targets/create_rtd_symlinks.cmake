@@ -13,6 +13,7 @@ set(CMAKE_PROGRAM_PATH  "${PROJ_CONDA_DIR}"
                         "${PROJ_CONDA_DIR}/Library")
 include(LogUtils)
 include(JsonUtils)
+include(GettextUtils)
 
 
 if (CMAKE_HOST_WIN32)
@@ -85,3 +86,29 @@ endforeach()
 unset(_LANGUAGE)
 message("")
 restore_cmake_message_indent()
+
+
+# TODO: Remove the following lines once mdbook-i18n-helpers supports multiple .po files.
+#
+# Currently, mdbook-i18n-helpers cannot translate the book with a tree of .po files.
+# Therefore, we need to concatenate all .po files for each language into a single
+# file using msgcat before mdbook can process the translations.
+#
+# See https://github.com/google/mdbook-i18n-helpers/issues/185 for details.
+foreach(_LANGUAGE ${LANGUAGE_LIST})
+    if (_LANGUAGE STREQUAL LANGUAGE_SOURCE)
+        continue()
+    endif()
+    message(STATUS "Concatenating translations of '${VERSION}' version for '${_LANGUAGE}' language...")
+    set(PO_LOCALE_DIR   "${PROJ_L10N_VERSION_LOCALE_DIR}/${_LANGUAGE}")
+    set(PO_SINGLE_FILE  "${PROJ_L10N_VERSION_LOCALE_DIR}/${_LANGUAGE}.po")
+    remove_cmake_message_indent()
+    message("")
+    concat_po_from_locale_to_single(
+        IN_LOCALE_PO_DIR        "${PO_LOCALE_DIR}"
+        IN_SINGLE_PO_FILE       "${PO_SINGLE_FILE}"
+        IN_WRAP_WIDTH           "${GETTEXT_WRAP_WIDTH}")
+    message("")
+    restore_cmake_message_indent()
+endforeach()
+unset(_LANGUAGE)

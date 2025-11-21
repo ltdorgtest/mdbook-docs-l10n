@@ -230,7 +230,7 @@ if (  ( VERSION MATCHES "^(master)$" ) OR
     else()
         message(FATAL_ERROR "Invalid OS platform. (${CMAKE_HOST_SYSTEM_NAME})")
     endif()
-    set(CRATE_OF_MDBOOK "mdbook@^0.4")
+    set(CRATE_OF_MDBOOK             "mdbook@^0.4")
     remove_cmake_message_indent()
     message("")
     message("CRATE_OF_MDBOOK  = ${CRATE_OF_MDBOOK}")

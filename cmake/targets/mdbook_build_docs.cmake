@@ -73,14 +73,13 @@ foreach(_LANGUAGE ${LANGUAGE_LIST})
 
 
     if (NOT _LANGUAGE STREQUAL LANGUAGE_SOURCE)
-        # TODO: Remove this workaround once mdbook-i18n-helpers supports multiple .po files.
-        #
-        # Refer to: https://github.com/google/mdbook-i18n-helpers/issues/185
+        # TODO: Remove the following lines once mdbook-i18n-helpers supports multiple .po files.
         #
         # Currently, mdbook-i18n-helpers cannot translate the book with a tree of .po files.
         # Therefore, we need to concatenate all .po files for each language into a single
-        # file using msgcat before mdbook can process the translations. Once the issue is
-        # resolved, this entire concatenation step can be removed.
+        # file using msgcat before mdbook can process the translations.
+        #
+        # See https://github.com/google/mdbook-i18n-helpers/issues/185 for details.
         message(STATUS "Running 'msgcat' command to concatenate translations of '${VERSION}' version for '${_LANGUAGE}' language...")
         set(PO_LOCALE_DIR   "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}")
         set(PO_SINGLE_FILE  "${PROJ_OUT_REPO_BOOK_LOCALE_DIR}/${_LANGUAGE}.po")
