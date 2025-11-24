@@ -16,9 +16,9 @@
       "branch" : "master",
       "commit" : 
       {
-        "date" : "2025-10-28 01:44:41 +0000",
-        "hash" : "3fa49214adc56563ce9f78ccb28b28d0243ddc86",
-        "title" : "Merge pull request #2905 from ehuss/fix-indented-code-block"
+        "date" : "2025-11-17 23:27:24 +0000",
+        "hash" : "6bf7fadc295a862f1f4b2f2d4a9c4c0b1e998dff",
+        "title" : "Merge pull request #2943 from ehuss/config-changelog"
       }
     },
     "zh_TW" : 

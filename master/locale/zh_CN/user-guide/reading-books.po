@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mdBook Documentation\n"
-"POT-Creation-Date: 2025-10-28T17:13:39+08:00\n"
+"POT-Creation-Date: 2025-11-19T23:06:27+08:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -143,11 +143,11 @@ msgstr ""
 
 #: src/guide/reading.md:44
 msgid ""
-"Each book has a built-in search system. Pressing the search icon (<i "
-"class=\"fa fa-search\"></i>) in the menu bar, or pressing the <kbd>/</kbd> "
-"or <kbd>S</kbd> key on the keyboard will open an input box for entering "
-"search terms. Typing some terms will show matching chapters and sections in "
-"real time."
+"Each book has a built-in search system. Pressing the search icon <i "
+"class=\"fas fa-magnifying-glass\"></i> in the menu bar, or pressing the "
+"<kbd>/</kbd> or <kbd>S</kbd> key on the keyboard will open an input box for "
+"entering search terms. Typing some terms will show matching chapters and "
+"sections in real time."
 msgstr ""
 
 #: src/guide/reading.md:48
