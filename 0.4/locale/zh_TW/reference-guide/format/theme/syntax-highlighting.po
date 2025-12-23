@@ -29,7 +29,7 @@ msgstr ""
 
 #: src/format/theme/syntax-highlighting.md:17
 msgid "Supported languages"
-msgstr ""
+msgstr "支援的語言"
 
 #: src/format/theme/syntax-highlighting.md:19
 msgid ""
@@ -71,79 +71,79 @@ msgstr ""
 
 #: src/format/theme/syntax-highlighting.md:30
 msgid "d"
-msgstr ""
+msgstr "d"
 
 #: src/format/theme/syntax-highlighting.md:31
 msgid "diff"
-msgstr ""
+msgstr "diff"
 
 #: src/format/theme/syntax-highlighting.md:32
 msgid "go"
-msgstr ""
+msgstr "go"
 
 #: src/format/theme/syntax-highlighting.md:33
 msgid "handlebars"
-msgstr ""
+msgstr "handlebars"
 
 #: src/format/theme/syntax-highlighting.md:34
 msgid "haskell"
-msgstr ""
+msgstr "haskell"
 
 #: src/format/theme/syntax-highlighting.md:35
 msgid "http"
-msgstr ""
+msgstr "http"
 
 #: src/format/theme/syntax-highlighting.md:36
 msgid "ini"
-msgstr ""
+msgstr "ini"
 
 #: src/format/theme/syntax-highlighting.md:37
 msgid "java"
-msgstr ""
+msgstr "java"
 
 #: src/format/theme/syntax-highlighting.md:38
 msgid "javascript"
-msgstr ""
+msgstr "javascript"
 
 #: src/format/theme/syntax-highlighting.md:39
 msgid "json"
-msgstr ""
+msgstr "json"
 
 #: src/format/theme/syntax-highlighting.md:40
 msgid "julia"
-msgstr ""
+msgstr "julia"
 
 #: src/format/theme/syntax-highlighting.md:41
 msgid "kotlin"
-msgstr ""
+msgstr "kotlin"
 
 #: src/format/theme/syntax-highlighting.md:42
 msgid "less"
-msgstr ""
+msgstr "less"
 
 #: src/format/theme/syntax-highlighting.md:43
 msgid "lua"
-msgstr ""
+msgstr "lua"
 
 #: src/format/theme/syntax-highlighting.md:44
 msgid "makefile"
-msgstr ""
+msgstr "makefile"
 
 #: src/format/theme/syntax-highlighting.md:45
 msgid "markdown"
-msgstr ""
+msgstr "markdown"
 
 #: src/format/theme/syntax-highlighting.md:46
 msgid "nginx"
-msgstr ""
+msgstr "nginx"
 
 #: src/format/theme/syntax-highlighting.md:47
 msgid "nim"
-msgstr ""
+msgstr "nim"
 
 #: src/format/theme/syntax-highlighting.md:48
 msgid "nix"
-msgstr ""
+msgstr "nix"
 
 #: src/format/theme/syntax-highlighting.md:49
 msgid "objectivec"

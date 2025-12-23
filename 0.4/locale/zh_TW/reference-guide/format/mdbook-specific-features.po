@@ -17,7 +17,7 @@ msgstr ""
 
 #: src/format/mdbook.md:3
 msgid "Hiding code lines"
-msgstr ""
+msgstr "隱藏程式碼行"
 
 #: src/format/mdbook.md:5
 msgid ""
@@ -315,7 +315,7 @@ msgstr ""
 
 #: src/format/mdbook.md:279
 msgid "Inserting runnable Rust files"
-msgstr ""
+msgstr "插入可執行的 Rust 檔案"
 
 #: src/format/mdbook.md:281
 msgid ""
