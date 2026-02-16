@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mdBook Documentation\n"
-"POT-Creation-Date: 2025-10-28T17:13:39+08:00\n"
+"POT-Creation-Date: 2026-02-16T09:07:44Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -207,8 +207,8 @@ msgstr ""
 
 #: src/format/theme/index-hbs.md:97
 msgid ""
-"Icon: anything chosen from the [free icon set](https://fontawesome.com/icons?"
-"d=gallery&m=free)"
+"Icon: anything chosen from the [free icon set](https://fontawesome.com/v6/"
+"search)"
 msgstr ""
 
 #: src/format/theme/index-hbs.md:99
