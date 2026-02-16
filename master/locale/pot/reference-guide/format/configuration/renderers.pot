@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mdBook Documentation\n"
-"POT-Creation-Date: 2025-11-19T23:06:28+08:00\n"
+"POT-Creation-Date: 2026-02-16T09:07:44Z\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -266,13 +266,16 @@ msgstr ""
 
 #: src/format/configuration/renderers.md:146
 msgid ""
-"**git-repository-icon:** The FontAwesome icon class to use for the git "
-"repository link. Defaults to `fab-github` which looks like <i class=\"fa fab-"
+"**git-repository-icon:** The Font Awesome icon class to use for the git "
+"repository link. Defaults to `fab-github` which looks like <i class=\"fab fa-"
 "github\"></i>. If you are not using GitHub, another option to consider is "
-"`fa-code-fork` which looks like <i class=\"fas fa-code-fork\"></i>."
+"`fas-code-fork` which looks like <i class=\"fas fa-code-fork\"></i>. The "
+"start of the string should be `fa-` for regular icons, `fas-` for solid "
+"icons, or `fab-` for brand icons. See the [free icon set](https://"
+"fontawesome.com/v6/search) for the available icons."
 msgstr ""
 
-#: src/format/configuration/renderers.md:149
+#: src/format/configuration/renderers.md:147
 msgid ""
 "**edit-url-template:** Edit url template, when provided shows a \"Suggest an "
 "edit\" button (which looks like <i class=\"fas fa-pencil\"></i>) for "
@@ -283,14 +286,14 @@ msgid ""
 "path of the file in the repository."
 msgstr ""
 
-#: src/format/configuration/renderers.md:157
+#: src/format/configuration/renderers.md:155
 msgid ""
 "**input-404:** The name of the markdown file used for missing files. The "
 "corresponding output file will be the same, with the extension replaced with "
 "`html`. Defaults to `404.md`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:160
+#: src/format/configuration/renderers.md:158
 msgid ""
 "**site-url:** The url where the book will be hosted. This is required to "
 "ensure navigation links and script/css imports in the 404 file work "
@@ -299,7 +302,7 @@ msgid ""
 "meaning they should not start with `/`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:164
+#: src/format/configuration/renderers.md:162
 msgid ""
 "**cname:** The DNS subdomain or apex domain at which your book will be "
 "hosted. This string will be written to a file named CNAME in the root of "
@@ -308,7 +311,7 @@ msgid ""
 "github-pages/managing-a-custom-domain-for-your-github-pages-site))."
 msgstr ""
 
-#: src/format/configuration/renderers.md:168
+#: src/format/configuration/renderers.md:166
 msgid ""
 "**hash-files:** Include a cryptographic \"fingerprint\" of the files' "
 "contents in static asset filenames, so that if the contents of the file are "
@@ -318,17 +321,17 @@ msgid ""
 "\"filename\" }}` directives. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:174
+#: src/format/configuration/renderers.md:172
 msgid ""
 "**sidebar-header-nav:** If `true`, the sidebar will contain navigation for "
 "headers on the current page. Default is `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:178
+#: src/format/configuration/renderers.md:176
 msgid "`[output.html.print]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:180
+#: src/format/configuration/renderers.md:178
 msgid ""
 "The `[output.html.print]` table provides options for controlling the "
 "printable output. By default, mdBook will include an icon on the top right "
@@ -336,88 +339,88 @@ msgid ""
 "print the book as a single page."
 msgstr ""
 
-#: src/format/configuration/renderers.md:189
+#: src/format/configuration/renderers.md:187
 msgid ""
 "**enable:** Enable print support. When `false`, all print support will not "
 "be rendered. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:191
+#: src/format/configuration/renderers.md:189
 msgid ""
 "**page-break:** Insert page breaks between chapters. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:193
+#: src/format/configuration/renderers.md:191
 msgid "`[output.html.fold]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:195
+#: src/format/configuration/renderers.md:193
 msgid ""
 "The `[output.html.fold]` table provides options for controlling folding of "
 "the chapter listing in the navigation sidebar."
 msgstr ""
 
-#: src/format/configuration/renderers.md:203
+#: src/format/configuration/renderers.md:201
 msgid ""
 "**enable:** Enable section-folding. When off, all folds are open. Defaults "
 "to `false`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:205
+#: src/format/configuration/renderers.md:203
 msgid ""
 "**level:** The higher the more folded regions are open. When level is 0, all "
 "folds are closed. Defaults to `0`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:208
+#: src/format/configuration/renderers.md:206
 msgid "`[output.html.playground]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:210
+#: src/format/configuration/renderers.md:208
 msgid ""
 "The `[output.html.playground]` table provides options for controlling Rust "
 "sample code blocks, and their integration with the [Rust Playground](https://"
 "play.rust-lang.org/)."
 msgstr ""
 
-#: src/format/configuration/renderers.md:223
+#: src/format/configuration/renderers.md:221
 msgid "**editable:** Allow editing the source code. Defaults to `false`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:224
+#: src/format/configuration/renderers.md:222
 msgid ""
 "**copyable:** Display the copy button on code snippets. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:225
+#: src/format/configuration/renderers.md:223
 msgid ""
 "**copy-js:** Copy JavaScript files for the editor to the output directory. "
 "Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:227
+#: src/format/configuration/renderers.md:225
 msgid ""
 "**line-numbers:** Display line numbers on editable sections of code. "
 "Requires both `editable` and `copy-js` to be `true`. Defaults to `false`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:228
+#: src/format/configuration/renderers.md:226
 msgid ""
 "**runnable:** Displays a run button for rust code snippets. Changing this to "
 "`false` will disable the run in playground feature globally. Defaults to "
 "`true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:232
+#: src/format/configuration/renderers.md:230
 msgid "`[output.html.code]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:234
+#: src/format/configuration/renderers.md:232
 msgid ""
 "The `[output.html.code]` table provides options for controlling code blocks."
 msgstr ""
 
-#: src/format/configuration/renderers.md:236
+#: src/format/configuration/renderers.md:234
 msgid ""
 "```toml\n"
 "[output.html.code]\n"
@@ -427,7 +430,7 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/format/configuration/renderers.md:243
+#: src/format/configuration/renderers.md:241
 msgid ""
 "**hidelines:** A table that defines how [hidden code lines](../mdbook."
 "md#hiding-code-lines) work for each language. The key is the language and "
@@ -435,64 +438,64 @@ msgid ""
 "to be hidden."
 msgstr ""
 
-#: src/format/configuration/renderers.md:246
+#: src/format/configuration/renderers.md:244
 msgid "`[output.html.search]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:248
+#: src/format/configuration/renderers.md:246
 msgid ""
 "The `[output.html.search]` table provides options for controlling the built-"
 "in text [search](../../guide/reading.md#search). mdBook must be compiled "
 "with the `search` feature enabled (on by default)."
 msgstr ""
 
-#: src/format/configuration/renderers.md:267
+#: src/format/configuration/renderers.md:265
 msgid "**enable:** Enables the search feature. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:268
+#: src/format/configuration/renderers.md:266
 msgid ""
 "**limit-results:** The maximum number of search results. Defaults to `30`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:269
+#: src/format/configuration/renderers.md:267
 msgid ""
 "**teaser-word-count:** The number of words used for a search result teaser. "
 "Defaults to `30`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:271
+#: src/format/configuration/renderers.md:269
 msgid ""
 "**use-boolean-and:** Define the logical link between multiple search words. "
 "If true, all search words must appear in each result. Defaults to `false`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:273
+#: src/format/configuration/renderers.md:271
 msgid ""
 "**boost-title:** Boost factor for the search result score if a search word "
 "appears in the header. Defaults to `2`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:275
+#: src/format/configuration/renderers.md:273
 msgid ""
 "**boost-hierarchy:** Boost factor for the search result score if a search "
 "word appears in the hierarchy. The hierarchy contains all titles of the "
 "parent documents and all parent headings. Defaults to `1`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:278
+#: src/format/configuration/renderers.md:276
 msgid ""
 "**boost-paragraph:** Boost factor for the search result score if a search "
 "word appears in the text. Defaults to `1`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:280
+#: src/format/configuration/renderers.md:278
 msgid ""
 "**expand:** True if search should match longer results e.g. search `micro` "
 "should match `microwave`. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:282
+#: src/format/configuration/renderers.md:280
 msgid ""
 "**heading-split-level:** Search results will link to a section of the "
 "document which contains the result. Documents are split into sections by "
@@ -500,17 +503,17 @@ msgid ""
 "heading`)"
 msgstr ""
 
-#: src/format/configuration/renderers.md:285
+#: src/format/configuration/renderers.md:283
 msgid ""
 "**copy-js:** Copy JavaScript files for the search implementation to the "
 "output directory. Defaults to `true`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:288
+#: src/format/configuration/renderers.md:286
 msgid "`[output.html.search.chapter]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:290
+#: src/format/configuration/renderers.md:288
 msgid ""
 "The \\[`output.html.search.chapter`\\] table provides the ability to modify "
 "search settings per chapter or directory. Each key is the path to the "
@@ -519,7 +522,7 @@ msgid ""
 "taking precedence."
 msgstr ""
 
-#: src/format/configuration/renderers.md:292
+#: src/format/configuration/renderers.md:290
 msgid ""
 "```toml\n"
 "[output.html.search.chapter]\n"
@@ -530,7 +533,7 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/format/configuration/renderers.md:300
+#: src/format/configuration/renderers.md:298
 msgid ""
 "**enable:** Enables or disables search indexing for the given chapters. "
 "Defaults to `true`. This does not override the overall `output.html.search."
@@ -542,18 +545,18 @@ msgid ""
 "the search results."
 msgstr ""
 
-#: src/format/configuration/renderers.md:302
+#: src/format/configuration/renderers.md:300
 msgid "`[output.html.redirect]`"
 msgstr ""
 
-#: src/format/configuration/renderers.md:304
+#: src/format/configuration/renderers.md:302
 msgid ""
 "The `[output.html.redirect]` table provides a way to add redirects. This is "
 "useful when you move, rename, or remove a page to ensure that links to the "
 "old URL will go to the new location."
 msgstr ""
 
-#: src/format/configuration/renderers.md:307
+#: src/format/configuration/renderers.md:305
 msgid ""
 "```toml\n"
 "[output.html.redirect]\n"
@@ -572,7 +575,7 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/format/configuration/renderers.md:320
+#: src/format/configuration/renderers.md:318
 msgid ""
 "The table contains key-value pairs where the key is where the redirect file "
 "needs to be created, as an absolute path from the build directory, (e.g. `/"
@@ -581,13 +584,13 @@ msgid ""
 "bibliography.html`)."
 msgstr ""
 
-#: src/format/configuration/renderers.md:323
+#: src/format/configuration/renderers.md:321
 msgid ""
 "This will generate an HTML page which will automatically redirect to the "
 "given location."
 msgstr ""
 
-#: src/format/configuration/renderers.md:325
+#: src/format/configuration/renderers.md:323
 msgid ""
 "When fragment redirects are specified, the page must use JavaScript to "
 "redirect to the correct location. This is useful if you rename or move a "
@@ -595,11 +598,11 @@ msgid ""
 "pages."
 msgstr ""
 
-#: src/format/configuration/renderers.md:327
+#: src/format/configuration/renderers.md:325
 msgid "Markdown renderer"
 msgstr ""
 
-#: src/format/configuration/renderers.md:329
+#: src/format/configuration/renderers.md:327
 msgid ""
 "The Markdown renderer will run preprocessors and then output the resulting "
 "Markdown. This is mostly useful for debugging preprocessors, especially in "
@@ -607,19 +610,19 @@ msgid ""
 "to `rustdoc`."
 msgstr ""
 
-#: src/format/configuration/renderers.md:334
+#: src/format/configuration/renderers.md:332
 msgid ""
 "The Markdown renderer is included with `mdbook` but disabled by default. "
 "Enable it by adding an empty table to your `book.toml` as follows:"
 msgstr ""
 
-#: src/format/configuration/renderers.md:341
+#: src/format/configuration/renderers.md:339
 msgid ""
 "There are no configuration options for the Markdown renderer at this time; "
 "only whether it is enabled or disabled."
 msgstr ""
 
-#: src/format/configuration/renderers.md:344
+#: src/format/configuration/renderers.md:342
 msgid ""
 "See [the preprocessors documentation](preprocessors.md) for how to specify "
 "which preprocessors should run before the Markdown renderer."
